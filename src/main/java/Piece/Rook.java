@@ -1,14 +1,12 @@
 package Piece;
 
-import Piece.Piece;
-import jeu.Case;
 
 public class Rook implements Piece {
 private String couleur ;
 
     @Override
     public String toString() {
-        return "Tour";
+        return "Tour "+this.couleur;
     }
 
 

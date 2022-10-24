@@ -6,4 +6,7 @@ public class Fou implements Piece{
     public void setCouleur(String c) {
         this.couleur=c;
     }
+    public String toString(){
+        return "Fou " +couleur;
+    }
 }

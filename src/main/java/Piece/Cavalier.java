@@ -6,4 +6,8 @@ public class Cavalier implements Piece{
     public void setCouleur(String c) {
         this.couleur=c;
     }
+
+    public String toString(){
+        return "Cavalier "+this.couleur;
+    }
 }
