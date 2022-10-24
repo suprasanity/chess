@@ -38,4 +38,5 @@ Impossiblité de mater :
 - roi et fou contre roi et fou de même couleur.
 
 # Détail des classes principales:
-# Protocole réseau :![197554039-8f9cd025-6eb0-45bc-bde9-9bbddefce130](https://user-images.githubusercontent.com/113866704/197609509-30d4a90e-a520-4ca9-8357-13708e012e2a.png)
+# Protocole réseau :
+![197554039-8f9cd025-6eb0-45bc-bde9-9bbddefce130](https://user-images.githubusercontent.com/113866704/197609509-30d4a90e-a520-4ca9-8357-13708e012e2a.png)
