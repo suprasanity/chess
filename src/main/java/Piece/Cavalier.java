@@ -1,5 +1,7 @@
 package Piece;
 
+import java.io.PrintWriter;
+
 public class Cavalier implements Piece{
    private String couleur;
     @Override
@@ -9,5 +11,10 @@ public class Cavalier implements Piece{
 
     public String toString(){
         return "Cavalier "+this.couleur;
+    }
+    public void PrintUnicode(){
+        PrintWriter printWriter = new PrintWriter(System.out,true);
+        char aa = '\u2658';
+        printWriter.println(aa);
     }
 }
