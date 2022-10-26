@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Plateau {
-    private List<Case> lesCase = new ArrayList<>();
+    public  List<Case> lesCase = new ArrayList<>();
 
     public Plateau() {
         initCase();
@@ -36,7 +36,7 @@ public class Plateau {
     public void initPiece() {
         for (Case c : lesCase) {
             if (c.getNumber() == 2 || c.getNumber() == 7) {
-                c.setPiece(new Pion());
+                c.setPiece(new Pion(c));
             }
             if ((c.getNumber() == 1 || c.getNumber() == 8) && (c.getLettre() == 'A' || c.getLettre() == 'H')) {
                 c.setPiece(new Rook());
@@ -61,5 +61,9 @@ public class Plateau {
         for (Case c : lesCase) {
             System.out.println(c);
         }
+    }
+    public void MoovePiece(Case caseDepart,Case caseArrive){
+        caseArrive.setPiece(caseDepart.getPiece());
+        caseDepart.setPiece(null);
     }
 }

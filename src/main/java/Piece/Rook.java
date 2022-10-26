@@ -1,8 +1,11 @@
 package Piece;
 
 
+import jeu.Case;
+
 public class Rook implements Piece {
 private String couleur ;
+private Case aCase;
 
     @Override
     public String toString() {
