@@ -4,18 +4,15 @@ package Piece;
 import jeu.Case;
 
 public class Rook implements Piece {
-private String couleur ;
-private Case aCase;
+private String color ;
+
 
     @Override
     public String toString() {
-        return "Tour "+this.couleur;
+        return "Tour "+this.color;
     }
-
-
-
     @Override
-    public void setCouleur(String c) {
-this.couleur=c;
+    public void setColor(String color) {
+        this.color=color;
     }
 }

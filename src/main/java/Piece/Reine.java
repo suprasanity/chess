@@ -1,10 +1,10 @@
 package Piece;
 
 public class Reine implements Piece{
-    private String couleur;
+    private String color;
     @Override
-    public void setCouleur(String c) {
-        this.couleur=c;
+    public void setColor(String color) {
+        this.color=color;
     }
-    public String toString(){return "Reine "+couleur;}
+    public String toString(){return "Reine "+color;}
 }

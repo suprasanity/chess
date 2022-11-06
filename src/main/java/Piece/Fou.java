@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 public class Fou implements Piece{
-    private String couleur;
+    private String color;
 
     @Override
-    public void setCouleur(String c) {
-        this.couleur=c;
+    public void setColor(String color) {
+        this.color=color;
     }
     public String toString(){
-        return "Fou " +couleur;
+        return "Fou " +this.color;
     }
 
 

@@ -9,17 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Pion implements Piece {
-    private String couleur;
-    private Case aCase;
-public Pion(Case c){
-    this.aCase=c;
-}
-
+    private String color;
     @Override
     public String toString() {
-        return "pion " +couleur;
+        return "pion " +this.color;
     }
-    public void setCouleur(String c){this.couleur=c;}
+    public void setColor(String color){this.color=color;}
 
 
 }

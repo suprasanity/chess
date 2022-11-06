@@ -18,9 +18,9 @@ public class Plateau {
     private void initCouleur() {
         for (Case c : lesCase) {
             if (c.getNumber() == 1 || c.getNumber() == 2) {
-                c.getPiece().setCouleur("Blanc");
+                c.getPiece().setColor("Blanc");
             } else if(c.getNumber() == 7 || c.getNumber() == 8) {
-                c.getPiece().setCouleur("Noir");
+                c.getPiece().setColor("Noir");
             }
         }
     }
@@ -36,7 +36,7 @@ public class Plateau {
     public void initPiece() {
         for (Case c : lesCase) {
             if (c.getNumber() == 2 || c.getNumber() == 7) {
-                c.setPiece(new Pion(c));
+                c.setPiece(new Pion());
             }
             if ((c.getNumber() == 1 || c.getNumber() == 8) && (c.getLettre() == 'A' || c.getLettre() == 'H')) {
                 c.setPiece(new Rook());

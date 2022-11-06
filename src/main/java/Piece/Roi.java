@@ -3,13 +3,12 @@ package Piece;
 import jeu.Case;
 
 public class Roi implements Piece{
-    private String couleur;
-    private Case aCase;
+    private String color;
     @Override
-    public void setCouleur(String c) {
-        this.couleur=c;
+    public void setColor(String color) {
+        this.color=color;
     }
     public String toString(){
-        return "Roi " + this.couleur;
+        return "Roi " + this.color;
     }
 }
