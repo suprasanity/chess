@@ -18,6 +18,9 @@ public class Pawn implements Piece {
     public void setSymbol(String color){
         this.symbol = (color.equals("Black")) ? '\u265F' : '\u2659';
     }
+    public char getSymbol(){
+        return this.symbol;
+    }
     public String getColor(){
         return this.color;
     }

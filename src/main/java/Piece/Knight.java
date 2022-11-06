@@ -13,6 +13,9 @@ public class Knight implements Piece{
     public void setSymbol(String color){
         this.symbol = (color.equals("Black")) ? '\u265E' : '\u2658';
     }
+    public char getSymbol(){
+        return this.symbol;
+    }
     public String getColor(){
         return this.color;
     }

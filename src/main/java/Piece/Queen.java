@@ -11,6 +11,9 @@ public class Queen implements Piece{
     public void setSymbol(String color){
         this.symbol = (color.equals("Black")) ? '\u265B' : '\u2655'; 
     }
+    public char getSymbol(){
+        return this.symbol;
+    }
     public String getColor(){
         return this.color;
     }

@@ -11,6 +11,9 @@ public class Rook implements Piece {
     public void setSymbol(String color){
         this.symbol = (color.equals("Black")) ? '\u265C' : '\u2656';
     }
+    public char getSymbol(){
+        return this.symbol;
+    }
     public String getColor(){
         return this.color;
     }

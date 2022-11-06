@@ -17,6 +17,9 @@ public class Bishop implements Piece{
     public void setSymbol(String color){
         this.symbol = (color.equals("Black")) ? '\u265D': '\u2657';
     }
+    public char getSymbol(){
+        return this.symbol;
+    }
     public String getColor(){
         return this.color;
     }

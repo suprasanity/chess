@@ -9,6 +9,6 @@ public interface Piece {
  String getColor();
  int getValue();
  void setSymbol(String color);
-
+ char getSymbol();
   List<Square> listCoupPossible = null;
 }
