@@ -9,9 +9,13 @@ import java.util.Map;
 public class Bishop implements Piece{
     private String color;
     private final int VALUE = 3;
-
+    private char symbol;
     public void setColor(String color) {
         this.color=color;
+        setSymbol(color);
+    }
+    public void setSymbol(String color){
+        this.symbol = (color.equals("Black")) ? '\u265D': '\u2657';
     }
     public String getColor(){
         return this.color;

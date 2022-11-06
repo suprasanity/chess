@@ -1,13 +1,15 @@
 package Piece;
 
-
-
-
 public class Rook implements Piece {
     private String color ;
     private final int VALUE = 5;
+    private char symbol;
     public void setColor(String color) {
         this.color=color;
+        setSymbol(color);
+    }
+    public void setSymbol(String color){
+        this.symbol = (color.equals("Black")) ? '\u265C' : '\u2656';
     }
     public String getColor(){
         return this.color;

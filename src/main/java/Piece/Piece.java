@@ -8,6 +8,7 @@ public interface Piece {
  void setColor(String color);
  String getColor();
  int getValue();
+ void setSymbol(String color);
 
   List<Square> listCoupPossible = null;
 }
