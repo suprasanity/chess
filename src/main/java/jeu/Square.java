@@ -2,21 +2,19 @@ package jeu;
 
 import Piece.Piece;
 
-public class Case {
-
-
-    private char lettre;
+public class Square {
+    private char letter;
     private int number;
     private Piece piece;
-    public Case(char lettre, int number){
-        this.lettre=lettre;
+    public Square(char letter, int number){
+        this.letter=letter;
         this.number=number;
     }
 
     public void setPiece(Piece p){this.piece=p;}
     public int getNumber(){return this.number;}
-    public char getLettre() {
-        return lettre;
+    public char getLetter() {
+        return letter;
     }
     public Piece getPiece(){
         return this.piece;
@@ -24,7 +22,7 @@ public class Case {
     @Override
     public String toString() {
         return "jeu.Case{" +
-                "lettre=" + lettre +
+                "lettre=" + letter +
                 ", number=" + number +
                 ", piece=" + piece +
                 '}';
