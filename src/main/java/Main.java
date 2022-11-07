@@ -1,16 +1,16 @@
 import Piece.Piece;
-import Piece.Cavalier;
-import jeu.Plateau;
+import Piece.Knight;
+import jeu.Board;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        Plateau p = new Plateau();
+        
+        Board p = new Board();
         p.afficherPlateau();
-        Guest g1=new Guest("yann");
-*/
-         Cavalier p = new Cavalier();
-         p.PrintUnicode();
+        //Guest g1=new Guest("yann");
+
+        // Cavalier p = new Cavalier();
+        // p.PrintUnicode();
 
 
     }

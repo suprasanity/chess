@@ -1,11 +1,14 @@
 package Piece;
 
-import jeu.Case;
+import jeu.Square;
 
 import java.util.List;
 
 public interface Piece {
- void setCouleur(String c);
-
-  List<Case> listCoupPossible = null;
+ void setColor(String color);
+ String getColor();
+ int getValue();
+ void setSymbol(String color);
+ char getSymbol();
+  List<Square> listCoupPossible = null;
 }

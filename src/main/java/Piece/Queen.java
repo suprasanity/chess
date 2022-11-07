@@ -1,15 +1,15 @@
 package Piece;
 
-public class Rook implements Piece {
-    private String color ;
-    private final int VALUE = 5;
+public class Queen implements Piece{
+    private String color;
+    private final int VALUE = 9;
     private char symbol;
     public void setColor(String color) {
         this.color=color;
         setSymbol(color);
     }
     public void setSymbol(String color){
-        this.symbol = (color.equals("Black")) ? '\u265C' : '\u2656';
+        this.symbol = (color.equals("Black")) ? '\u265B' : '\u2655'; 
     }
     public char getSymbol(){
         return this.symbol;
@@ -21,8 +21,7 @@ public class Rook implements Piece {
         return this.VALUE;
     }
     @Override
-    public String toString() {
-        return "Tour "+this.color;
+    public String toString(){
+        return "Reine "+color;
     }
-    
 }

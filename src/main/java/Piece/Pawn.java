@@ -1,15 +1,22 @@
 package Piece;
 
-public class Rook implements Piece {
-    private String color ;
-    private final int VALUE = 5;
+
+import jeu.Board;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Pawn implements Piece {
+    private String color;
+    private final int VALUE = 1;
     private char symbol;
-    public void setColor(String color) {
+    public void setColor(String color){
         this.color=color;
         setSymbol(color);
     }
     public void setSymbol(String color){
-        this.symbol = (color.equals("Black")) ? '\u265C' : '\u2656';
+        this.symbol = (color.equals("Black")) ? '\u265F' : '\u2659';
     }
     public char getSymbol(){
         return this.symbol;
@@ -22,7 +29,8 @@ public class Rook implements Piece {
     }
     @Override
     public String toString() {
-        return "Tour "+this.color;
+        return "pion " +this.color;
     }
-    
+
+
 }
