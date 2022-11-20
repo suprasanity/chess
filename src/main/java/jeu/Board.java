@@ -2,19 +2,30 @@ package jeu;
 
 import Piece.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Board {
-    public  List<Square> lesCase = new ArrayList<>();
-    private final char[] LETTER = "ABCDEFGH".toCharArray();
+    public static List<Square> lesCase = new ArrayList<>();
+    //on suppose que 0=>A ... 7=>H
+    public static final List<Character> LETTER = arrayToListChar("ABCDEFGH".toCharArray());
+    
     public Board() {
         initCase();
         initPiece();
         initCouleur();
 
     }
-
+    private static List<Character> arrayToListChar(char[] array){
+        List<Character> listOfChar = new ArrayList<>(); 
+        for(char i : array){
+            listOfChar.add((Character)i);
+        }
+        return listOfChar;
+    }
+    
     private void initCouleur() {
         for (Square c : lesCase) {
             if (c.getNumber() == 1 || c.getNumber() == 2) {
@@ -27,7 +38,7 @@ public class Board {
 
     public void initCase() {
         for (int i = 1; i <= 8; i++) {
-            for (char c : this.LETTER)
+            for (char c : Board.LETTER)
                 lesCase.add(new Square(c, i));
         }
     }
@@ -62,7 +73,7 @@ public class Board {
         }
         int buff = 0;
         System.out.print(" ");
-        for(char letter : this.LETTER){
+        for(char letter : Board.LETTER){
             System.out.print("  "+letter);
         }
         System.out.println("");
@@ -88,7 +99,7 @@ public class Board {
         }
     }
 }
-    public void MoovePiece(Square caseDepart,Square caseArrive){
+    public void MovePiece(Square caseDepart,Square caseArrive){
         caseArrive.setPiece(caseDepart.getPiece());
         caseDepart.setPiece(null);
     }
