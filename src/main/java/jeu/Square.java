@@ -21,8 +21,13 @@ public class Square {
     }
 
     //override not on parameters, function below delete 
-    public boolean equalSquare(Square other){
-        return (other.letter==this.letter && other.number==this.number);
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Square){
+            Square square = (Square) other;
+            return (square.letter==this.letter && square.number==this.number);
+        }
+        return false;
     }
     public static boolean isValidSquare(Square other){
         return false;
