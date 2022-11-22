@@ -1,5 +1,6 @@
 package Piece;
 
+import jeu.Move;
 import jeu.Square;
 
 import java.util.List;
@@ -10,6 +11,6 @@ public interface Piece {
  int getValue();
  void setSymbol(String color);
  char getSymbol();
-  List<Square> legalMovSquares(Square square, List<Square> Board);
+  List<Move> legalMovSquares(Square square, List<Square> Board);
   boolean isFirstMove();
 }
