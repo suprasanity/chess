@@ -13,8 +13,8 @@ public class Player {
         this.color = (color.equals("Black") ? "Black" : "White");
         this.name = name;
     }
-    public String getCurrentColor(){return this.color;}
-    public String getOpponnentColor(){return (this.color.equals("Black") ? "Black" : "White");}
+    public static String getCurrentColor(){return this.color;}
+    public static String getOpponnentColor(){return (this.color.equals("Black") ? "Black" : "White");}
     public List<Piece> getAllPieces(List<Square> board){
         List<Piece> listOfPiece = new ArrayList<>();
         for(Square square : board){
@@ -29,5 +29,5 @@ public class Player {
     }
     public List<Square> getOpponentAttacksOnSquare(List<Square> Board){return null;}
     public static int getDirection(){return 1;}
-    public static void getOpponentDirection(){}
+    public static int getOpponentDirection(){return -1;}
 }
