@@ -11,7 +11,8 @@ public class Board {
     public static List<Square> lesCase = new ArrayList<>();
     //on suppose que 0=>A ... 7=>H
     public static final List<Character> LETTER = arrayToListChar("ABCDEFGH".toCharArray());
-    
+    public static final int START_INDEX_BOARD = 0;
+    public static final int END_INDEX_BOARD = 63;
     public Board() {
         initCase();
         initPiece();
@@ -103,4 +104,5 @@ public class Board {
         caseArrive.setPiece(caseDepart.getPiece());
         caseDepart.setPiece(null);
     }
+   
 }

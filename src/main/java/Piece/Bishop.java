@@ -3,9 +3,11 @@ package Piece;
 
 
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import jeu.Board;
 import jeu.Move;
 import jeu.Square;
 
@@ -21,14 +23,29 @@ public class Bishop implements Piece{
     public void setSymbol(String color){
         this.symbol = (color.equals("Black")) ? '\u265D': '\u2657';
     }
-    public List<Move> legalMovSquares(Square square, List<Square> Board){
+    public List<Move> legalMovSquares(Square square){
+        int index=0;
+        List<Move> legalMove = new ArrayList<>();
         if(square.getPiece() instanceof Bishop){
-            for(Square findSquare : Board){
-                if(square.){
+            for(Square findSquare : Board.lesCase){// en trop ?
+                if(square.equals(findSquare)){
+                    index = Board.lesCase.indexOf(findSquare);
+                }
+            }
+            for(int direction : listDirection){
+                int nextPossibleSquare = direction + index;
+                if(!(nextPossibleSquare>Board.END_INDEX_BOARD) 
+                && !(nextPossibleSquare<Board.START_INDEX_BOARD)){
+                    if(Board.lesCase.get(nextPossibleSquare).getPiece()==null){
+                        legalMove.add(Move());// move constructor(destination coord, current coord,piece,) 
+                    }
+                    if(Board.lesCase.get(nextPossibleSquare).getPiece().getColor().equals(getOpponnentColor)){
 
+                    }
                 }
             }
         }
+        return null;
     }
     public char getSymbol(){
         return this.symbol;
