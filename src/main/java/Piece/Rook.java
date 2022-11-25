@@ -32,8 +32,8 @@ public class Rook implements Piece {
                     if((isColumnExclusionLeft(buff, square, nextPossibleSquare) || 
                     isColumnExclusionRight(buff, square, nextPossibleSquare)) || 
                     (direction == 8 || direction ==-8)){
-                        if(nextPossibleSquare<Board.END_INDEX_BOARD 
-                        && nextPossibleSquare>Board.START_INDEX_BOARD){
+                        if(nextPossibleSquare<=Board.END_INDEX_BOARD 
+                        && nextPossibleSquare>=Board.START_INDEX_BOARD){
                             if(Board.lesCase.get(nextPossibleSquare).getPiece()==null){
                                 
                                 legalMove.add(new Move(nextPossibleSquare,index, new Rook()));// move constructor(destination coord, current coord,piece,) 
