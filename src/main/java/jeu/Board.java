@@ -13,7 +13,9 @@ public class Board {
     public static final List<Character> LETTER = arrayToListChar("ABCDEFGH".toCharArray());
     public static final int START_INDEX_BOARD = 0;
     public static final int END_INDEX_BOARD = 63;
-    public Board() {
+    public static Player p;
+    public Board(Player player) { // injection d'objet => Player player
+        this.p = player;
         initCase();
         initPiece();
         initCouleur();
@@ -30,9 +32,9 @@ public class Board {
     private void initCouleur() {
         for (Square c : lesCase) {
             if (c.getNumber() == 1 || c.getNumber() == 2) {
-                c.getPiece().setColor("White");
+                c.getPiece().setColor(p.getOpponnentColor());
             } else if(c.getNumber() == 7 || c.getNumber() == 8) {
-                c.getPiece().setColor("Black");
+                c.getPiece().setColor(p.getCurrentColor());
             }
         }
     }
