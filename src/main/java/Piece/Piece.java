@@ -11,6 +11,6 @@ public interface Piece {
  int getValue();
  void setSymbol(String color);
  char getSymbol();
-  List<Move> legalMovSquares(Square square, List<Square> Board);
+  List<Move> legalMovSquares(Square square);
   boolean isFirstMove();
 }
