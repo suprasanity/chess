@@ -6,15 +6,18 @@ import java.util.List;
 import Piece.Piece;
 
 public class Player {
-    //class abstraite/static , settings
     private final String color;
     private final String name;
     public Player(String color,String name){
         this.color = (color.equals("Black") ? "Black" : "White");
         this.name = name;
     }
-    public static String getCurrentColor(){return this.color;}
-    public static String getOpponnentColor(){return (this.color.equals("Black") ? "Black" : "White");}
+    public String getCurrentColor(){
+        return this.color;
+    }
+    public String getOpponnentColor(){
+        return (this.color.equals("Black") ? "White" : "Black");
+    }
     public List<Piece> getAllPieces(List<Square> board){
         List<Piece> listOfPiece = new ArrayList<>();
         for(Square square : board){
@@ -28,6 +31,7 @@ public class Player {
         return null;
     }
     public List<Square> getOpponentAttacksOnSquare(List<Square> Board){return null;}
-    public static int getDirection(){return 1;}
-    public static int getOpponentDirection(){return -1;}
+    //maybe make this into attr 
+    public static int getDirection(){return -1;}
+    public static int getOpponentDirection(){return 1;}
 }
