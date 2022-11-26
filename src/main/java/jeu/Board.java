@@ -11,6 +11,7 @@ public class Board {
     public static List<Square> lesCase = new ArrayList<>();
     //on suppose que 0=>A ... 7=>H
     public static final List<Character> LETTER = arrayToListChar("ABCDEFGH".toCharArray());
+    public static final List<Character> REV_LETTER = arrayToListChar("HGFEDCBA".toCharArray());
     public static final int START_INDEX_BOARD = 0;
     public static final int END_INDEX_BOARD = 63;
     public static Player p;
@@ -31,19 +32,28 @@ public class Board {
     
     private void initCouleur() {
         for (Square c : lesCase) {
+
             if (c.getNumber() == 1 || c.getNumber() == 2) {
-                c.getPiece().setColor(p.getOpponnentColor());
+                c.getPiece().setColor("White");
             } else if(c.getNumber() == 7 || c.getNumber() == 8) {
-                c.getPiece().setColor(p.getCurrentColor());
+                c.getPiece().setColor("Black");
             }
         }
     }
 
     public void initCase() {
-        for (int i = 1; i <= 8; i++) {
-            for (char c : Board.LETTER)
-                lesCase.add(new Square(c, i));
+        if(p.getCurrentColor().equals("Black")){
+            for (int i = 1; i <= 8; i++) {
+                for (char c : Board.REV_LETTER)
+                    lesCase.add(new Square(c, i));
+            }
+        }else{
+            for(int i=8; i>=1; i--){
+                for(char c : Board.LETTER)
+                    lesCase.add(new Square(c, i));
+            }
         }
+        
     }
 
     public void initPiece() {
@@ -76,7 +86,8 @@ public class Board {
         }
         int buff = 0;
         System.out.print(" ");
-        for(char letter : Board.LETTER){
+        for(char letter : (p.getCurrentColor().equals("White"))
+        ?Board.LETTER : Board.REV_LETTER){
             System.out.print("  "+letter);
         }
         System.out.println("");
