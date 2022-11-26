@@ -62,7 +62,7 @@ public class Bishop implements Piece{
         return legalMove;
     }
     public boolean isColumnExclusionLeft(int step,Square currSquare,int indexNextSquare){ // static ? 
-        char currLetter = currSquare.getLetter();
+        char currLetter = currSquare.getLetter();// modify
         int indexCurrLetter = Board.LETTER.indexOf(currLetter);
         int indexNextLetter;
         try{
@@ -77,7 +77,7 @@ public class Bishop implements Piece{
     }
     public boolean isColumnExclusionRight(int step, Square currSquare,int indexNextSquare){
         char currLetter = currSquare.getLetter();
-        int indexCurrLetter = Board.LETTER.indexOf(currLetter);
+        int indexCurrLetter = Board.LETTER.indexOf(currLetter);//need modify
         int indexNextLetter;
         try{
             indexNextLetter= indexCurrLetter + step;

@@ -1,11 +1,23 @@
 package Piece;
 
+import java.util.ArrayList;
+import java.util.List;
 
+import jeu.Move;
+import jeu.Square;
 
 public class King implements Piece{
     private String color;
     private final int VALUE = -1;
     private char symbol;
+    public boolean isFirstMove(){
+        return false;
+    }
+    public List<Move> legalMovSquares(Square square){
+        List<Move> legalMove = new ArrayList<>();
+        
+        return legalMove;
+    }
     public void setColor(String color) {
         this.color=color;
         setSymbol(color);

@@ -41,7 +41,7 @@ public class Board {
         }
     }
 
-    public void initCase() {
+    public void initCase() {//factoris
         if(p.getCurrentColor().equals("Black")){
             for (int i = 1; i <= 8; i++) {
                 for (char c : Board.REV_LETTER)
