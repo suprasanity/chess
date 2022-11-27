@@ -19,6 +19,16 @@ public class Square {
     public Piece getPiece(){
         return this.piece;
     }
+
+    //override not on parameters, function below delete 
+    public boolean equalSquare(Square other){
+        return (other.letter==this.letter && other.number==this.number);
+    }
+    public static boolean isValidSquare(Square other){
+        return false;
+    }
+    public static boolean isOccupied(Square other){return false;}
+
     @Override
     public String toString() {
         return "jeu.Case{" +

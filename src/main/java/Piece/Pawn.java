@@ -2,6 +2,7 @@ package Piece;
 
 
 import jeu.Board;
+import jeu.Square;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +12,10 @@ public class Pawn implements Piece {
     private String color;
     private final int VALUE = 1;
     private char symbol;
-    public void setColor(String color){
+    private boolean firstMove;
+    public void setColor(String color,Boolean firstMove){
         this.color=color;
+        this.firstMove = firstMove;
         setSymbol(color);
     }
     public void setSymbol(String color){
@@ -26,6 +29,16 @@ public class Pawn implements Piece {
     }
     public int getValue(){
         return this.VALUE;
+    }
+    public boolean isFirstMove(){
+        return this.firstMove;
+    }
+    public List<Square> legalMovSquares(Square square, List<Square> Board){
+        if(this.color.equals("Black")){
+
+        }
+            
+        
     }
     @Override
     public String toString() {

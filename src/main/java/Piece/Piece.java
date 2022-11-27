@@ -10,5 +10,6 @@ public interface Piece {
  int getValue();
  void setSymbol(String color);
  char getSymbol();
-  List<Square> listCoupPossible = null;
+  List<Square> legalMovSquares(Square square, List<Square> Board);
+  boolean isFirstMove();
 }
