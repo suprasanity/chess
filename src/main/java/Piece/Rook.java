@@ -28,7 +28,7 @@ public class Rook implements Piece {
             
             for(int direction : listDirection){
                 int nextPossibleSquare = direction + index;
-                while(1==1){
+                while(1==1){ // for(){}
                     if((isColumnExclusionLeft(buff, square, nextPossibleSquare) || 
                     isColumnExclusionRight(buff, square, nextPossibleSquare)) || 
                     (direction == 8 || direction ==-8)){
@@ -36,14 +36,16 @@ public class Rook implements Piece {
                         && nextPossibleSquare>=Board.START_INDEX_BOARD){
                             if(Board.lesCase.get(nextPossibleSquare).getPiece()==null){
                                 
-                                legalMove.add(new Move(nextPossibleSquare,index, new Rook()));// move constructor(destination coord, current coord,piece,) 
+                                legalMove.add(new Move(nextPossibleSquare,index,Board.lesCase
+                                .get(index).getPiece()));// move constructor(destination coord, current coord,piece,) 
                                 nextPossibleSquare+=direction;
                                 buff++;
                             }
                             else{
                                 if(Board.lesCase.get(nextPossibleSquare).getPiece()
                                     .getColor().equals("White")){
-                                    legalMove.add(new Move(nextPossibleSquare,index, new Rook()));
+                                    legalMove.add(new Move(nextPossibleSquare,index,Board.lesCase
+                                    .get(index).getPiece()));
                                     break;
                                 }else{break;}
                             }

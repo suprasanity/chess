@@ -13,8 +13,10 @@ public class Knight implements Piece{
     private final int VALUE = 3;
     private char symbol;
     private final int[] listDirection = new int[]{6,-6,15,-15,17,-17,10,-10};
+    private boolean firstMove = false;
+    public void setFirstMove(){this.firstMove = true;}
     public boolean isFirstMove(){
-        return false;
+        return this.firstMove;
     }
     public List<Move> legalMovSquares(Square square){
         int index=0;
@@ -37,13 +39,14 @@ public class Knight implements Piece{
                     if(nextPossibleSquare<=Board.END_INDEX_BOARD 
                     && nextPossibleSquare>=Board.START_INDEX_BOARD){
                         if(Board.lesCase.get(nextPossibleSquare).getPiece()==null){
-                            Piece piece = new Bishop();
-                            legalMove.add(new Move(nextPossibleSquare,index, new Knight()));// move constructor(destination coord, current coord,piece,) 
+                            legalMove.add(new Move(nextPossibleSquare,index, Board.lesCase
+                            .get(index).getPiece()));// move constructor(destination coord, current coord,piece,) 
                         }
                         else{
                             if(Board.lesCase.get(nextPossibleSquare).getPiece()
                                 .getColor().equals("White")){
-                                legalMove.add(new Move(nextPossibleSquare,index, new Knight()));
+                                legalMove.add(new Move(nextPossibleSquare,index, Board.lesCase
+                                .get(index).getPiece()));
                             }
                         }
                     }

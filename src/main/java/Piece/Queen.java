@@ -12,8 +12,10 @@ public class Queen implements Piece{
     private final int VALUE = 9;
     private char symbol;
     private final int[] listDirection = new int[]{1,-1,-9,9,-7,7,8,-8};
+    private boolean firstMove = false;
+    public void setFirstMove(){this.firstMove = true;}
     public boolean isFirstMove(){
-        return false;
+        return this.firstMove;
     }
     public List<Move> legalMovSquares(Square square){
         
@@ -37,14 +39,16 @@ public class Queen implements Piece{
                         && nextPossibleSquare>=Board.START_INDEX_BOARD){
                             if(Board.lesCase.get(nextPossibleSquare).getPiece()==null){
                                 Piece piece = new Queen();
-                                legalMove.add(new Move(nextPossibleSquare,index, new Queen()));// move constructor(destination coord, current coord,piece,) 
+                                legalMove.add(new Move(nextPossibleSquare,index,Board.lesCase
+                                .get(index).getPiece()));// move constructor(destination coord, current coord,piece,) 
                                 nextPossibleSquare+=direction;
                                 buff++;
                             }
                             else{
                                 if(Board.lesCase.get(nextPossibleSquare).getPiece()
                                     .getColor().equals("White")){
-                                    legalMove.add(new Move(nextPossibleSquare,index, new Queen()));
+                                    legalMove.add(new Move(nextPossibleSquare,index,Board.lesCase
+                                    .get(index).getPiece()));
                                     break;
                                 }else{break;}
                             }
