@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: fr.pantheonsorbonne.miage:poo-player:1.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/fr/pantheonsorbonne/miage/poo-player/1.0.0-SNAPSHOT/poo-player-1.0.0-20221023.222324-50.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/fr/pantheonsorbonne/miage/poo-player/1.0.0-SNAPSHOT/poo-player-1.0.0-20221023.222324-50-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/fr/pantheonsorbonne/miage/poo-player/1.0.0-SNAPSHOT/poo-player-1.0.0-20221023.222324-50-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
