@@ -7,6 +7,21 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="reposilite-repository-release" />
+      <option name="name" value="MIAGE.DEV maven repository releases" />
+      <option name="url" value="https://maven.miage.dev/releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="reposilite-repository-snapshots" />
+      <option name="name" value="MIAGE.DEV maven repository" />
+      <option name="url" value="https://maven.miage.dev/snapshots" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="reposilite-repository-snapshots" />
+      <option name="name" value="MIAGE.DEV maven repository snapshots" />
+      <option name="url" value="https://maven.miage.dev/snapshots" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Maven Central repository" />
       <option name="url" value="https://repo1.maven.org/maven2" />

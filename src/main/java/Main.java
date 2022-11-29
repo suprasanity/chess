@@ -1,18 +1,13 @@
-import Piece.Piece;
-import Piece.Knight;
+import ai.Strategie;
 import jeu.Board;
-
+import jeu.Player;
+import ai.Minimax;
 public class Main {
     public static void main(String[] args) {
         
-        Board p = new Board();
-        p.afficherPlateau();
-        //Guest g1=new Guest("yann");
-
-        // Cavalier p = new Cavalier();
-        // p.PrintUnicode();
-
-
+        Board p = new Board(new Player("White","Yann"));
+         Strategie minMax = new Minimax();
+         minMax.execute(p, 3);
     }
 
 }
