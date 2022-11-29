@@ -8,18 +8,13 @@ import jeu.Move;
 import jeu.Square;
 
 public class Queen extends Piece {
-    private String color;
-    private final int VALUE = 9;
-    private char symbol;
     private final int[] listDirection = new int[]{1,-1,-9,9,-7,7,8,-8};
 
     public Queen(PieceType type, String color, Square piecePosition, boolean isFirstMove) {
         super(type, color, piecePosition, isFirstMove);
+        super.setSymbol((color.equals("Black")) ? '\u265B' : '\u2655');
     }
 
-    public boolean isFirstMove(){
-        return false;
-    }
     public List<Move> legalMovSquares(Square square){
 
         int index=0;
@@ -46,8 +41,8 @@ public class Queen extends Piece {
                                 buff++;
                             }
                             else{
-                                if(Board.lesCase.get(nextPossibleSquare).getPiece()
-                                        .getColor().equals("White")){
+                                if(! Board.lesCase.get(nextPossibleSquare).getPiece()
+                                        .getColor().equals(this.color)){
                                     legalMove.add(new Move(nextPossibleSquare,index));
                                     break;
                                 }else{break;}
@@ -87,22 +82,7 @@ public class Queen extends Piece {
             return false;
         }
     }
-    public void setColor(String color) {
-        this.color=color;
-        setSymbol(color);
-    }
-    public void setSymbol(String color){
-        this.symbol = (color.equals("Black")) ? '\u265B' : '\u2655';
-    }
-    public char getSymbol(){
-        return this.symbol;
-    }
-    public String getColor(){
-        return this.color;
-    }
-    public int getValue(){
-        return this.VALUE;
-    }
+
     @Override
     public String toString(){
         return "Reine "+color;

@@ -5,6 +5,7 @@ import jeu.Move;
 import jeu.Square;
 
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Piece {
 
@@ -81,4 +82,16 @@ public abstract List<Move> legalMovSquares(Square piecePosition) ;
 
  }
 
+ @Override
+ public boolean equals(Object o) {
+  if (this == o) return true;
+  if (o == null || getClass() != o.getClass()) return false;
+  Piece piece = (Piece) o;
+  return  symbol == piece.symbol && pieceType == piece.pieceType && Objects.equals(color, piece.color) && Objects.equals(piecePosition, piece.piecePosition);
+ }
+
+ @Override
+ public int hashCode() {
+  return Objects.hash(pieceType, color, isFirstMove, piecePosition, symbol);
+ }
 }

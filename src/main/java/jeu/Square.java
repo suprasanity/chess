@@ -2,10 +2,26 @@ package jeu;
 
 import Piece.Piece;
 
+import java.util.Objects;
+
 public class Square {
     private char letter;
     private int number;
     private Piece piece;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Square square = (Square) o;
+        return letter == square.letter && number == square.number;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(letter, number, piece);
+    }
+
     public Square(char letter, int number){
         this.letter=letter;
         this.number=number;

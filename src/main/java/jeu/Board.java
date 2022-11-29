@@ -58,7 +58,7 @@ public class Board {
                         c.setPiece(new Knight(Piece.PieceType.KNIGHT, "Black", c, true));
                     }
                     if(c.getLetter()=='C' || c.getLetter()=='F'){
-                        c.setPiece(new Bishop(Piece.PieceType.BISHOP, "Black", c, true));
+                        c.setPiece(new Bishop( "Black", c, true));
                     }
                     if(c.getLetter()=='D'){
                         c.setPiece(new Queen(Piece.PieceType.QUEEN, "Black", c, true));
@@ -79,7 +79,7 @@ public class Board {
                     c.setPiece(new Knight(Piece.PieceType.KNIGHT, "White", c, true));
                 }
                 if(c.getLetter()=='C' || c.getLetter()=='F'){
-                    c.setPiece(new Bishop(Piece.PieceType.BISHOP, "White", c, true));
+                    c.setPiece(new Bishop( "White", c, true));
                 }
                 if(c.getLetter()=='D'){
                     c.setPiece(new Queen(Piece.PieceType.QUEEN, "White", c, true));

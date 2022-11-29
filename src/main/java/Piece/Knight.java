@@ -13,6 +13,7 @@ public class Knight extends Piece {
 
     public Knight(PieceType type, String color, Square piecePosition, boolean isFirstMove) {
         super(type, color, piecePosition, isFirstMove);
+        super.setSymbol((color.equals("Black")) ? '\u265E' : '\u2658');
     }
 
     public boolean isFirstMove(){
@@ -43,8 +44,8 @@ public class Knight extends Piece {
                             legalMove.add(new Move(nextPossibleSquare,index));// move constructor(destination coord, current coord,piece,)
                         }
                         else{
-                            if(Board.lesCase.get(nextPossibleSquare).getPiece()
-                                    .getColor().equals("White")){
+                            if(! Board.lesCase.get(nextPossibleSquare).getPiece()
+                                    .getColor().equals(this.color)){
                                 legalMove.add(new Move(nextPossibleSquare,index));
                             }
                         }

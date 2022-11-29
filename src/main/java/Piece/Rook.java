@@ -12,6 +12,7 @@ public class Rook extends Piece {
 
     public Rook(PieceType type, String color, Square piecePosition, boolean isFirstMove) {
         super(type, color, piecePosition, isFirstMove);
+        super.setSymbol((color.equals("Black")) ? '\u265C' : '\u2656');
     }
 
     public boolean isFirstMove(){

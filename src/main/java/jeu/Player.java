@@ -52,13 +52,12 @@ public class Player {
     public List<Move> getLegalMoves() {
         List<Move> legalMoves = new ArrayList<>();
         for (Piece piece : getAllPieces(Board.lesCase)) {
-            if (piece.getColor().equals(this.color)) {
+            if (piece.getColor().equals(this.color) && piece.legalMovSquares(piece.getPiecePosition()).size() != 0) {
                 legalMoves.addAll(piece.legalMovSquares(piece.getPiecePosition()));
             }
-            return legalMoves;
-        }
 
-return null;
+        }
+        return legalMoves;
     }
 
     public MoveTransition makeMove(Move move) {
