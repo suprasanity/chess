@@ -9,9 +9,6 @@ import jeu.Move;
 import jeu.Square;
 
 public class Knight extends Piece {
-    private String color;
-    private final int VALUE = 3;
-    private char symbol;
     private final int[] listDirection = new int[]{6,-6,15,-15,17,-17,10,-10};
 
     public Knight(PieceType type, String color, Square piecePosition, boolean isFirstMove) {
@@ -92,23 +89,6 @@ public class Knight extends Piece {
             return false;
         }
     }
-    public void setColor(String color) {
-        this.color=color;
-        setSymbol(color);
-    }
-    public void setSymbol(String color){
-        this.symbol = (color.equals("Black")) ? '\u265E' : '\u2658';
-    }
-    public char getSymbol(){
-        return this.symbol;
-    }
-    public String getColor(){
-        return this.color;
-    }
-    public int getValue(){
-        return this.VALUE;
-    }
-    @Override
     public String toString(){
         return "Cavalier "+this.color;
     }

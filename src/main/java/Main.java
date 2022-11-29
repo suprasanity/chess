@@ -6,8 +6,7 @@ public class Main {
     public static void main(String[] args) {
         
         Board p = new Board(new Player("White","Yann"));
-         Strategie minMax = new Minimax();
-         minMax.execute(p, 3);
+         p.afficherPlateau();
     }
 
 }

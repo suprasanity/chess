@@ -8,9 +8,6 @@ import jeu.Move;
 import jeu.Square;
 
 public class Rook extends Piece {
-    private String color ;
-    private final int VALUE = 5;
-    private char symbol;
     private final int[] listDirection = new int[]{-1,1,8,-8};
 
     public Rook(PieceType type, String color, Square piecePosition, boolean isFirstMove) {
@@ -33,7 +30,7 @@ public class Rook extends Piece {
 
             for(int direction : listDirection){
                 int nextPossibleSquare = direction + index;
-                while(1==1){
+                while(true){
                     if((isColumnExclusionLeft(buff, square, nextPossibleSquare) ||
                             isColumnExclusionRight(buff, square, nextPossibleSquare)) ||
                             (direction == 8 || direction ==-8)){
@@ -46,8 +43,8 @@ public class Rook extends Piece {
                                 buff++;
                             }
                             else{
-                                if(Board.lesCase.get(nextPossibleSquare).getPiece()
-                                        .getColor().equals("White")){
+                                if(! Board.lesCase.get(nextPossibleSquare).getPiece()
+                                        .getColor().equals(this.color)){
                                     legalMove.add(new Move(nextPossibleSquare,index));
                                     break;
                                 }else{break;}
@@ -66,8 +63,8 @@ public class Rook extends Piece {
         try{
             indexNextLetter= indexCurrLetter - step;
             Board.LETTER.get(indexNextLetter);
-            return (Board.lesCase.get(indexNextSquare).getLetter()
-                    ==(Board.LETTER.get(indexNextLetter))) ? true : false;
+            return Board.lesCase.get(indexNextSquare).getLetter()
+                    == (Board.LETTER.get(indexNextLetter));
 
         }catch(Exception e){
             return false;
@@ -80,28 +77,12 @@ public class Rook extends Piece {
         try{
             indexNextLetter= indexCurrLetter + step;
             Board.LETTER.get(indexNextLetter);
-            return (Board.lesCase.get(indexNextSquare).getLetter()
-                    ==(Board.LETTER.get(indexNextLetter))) ? true : false;
+            return Board.lesCase.get(indexNextSquare).getLetter()
+                    == (Board.LETTER.get(indexNextLetter));
 
         }catch(Exception e){
             return false;
         }
-    }
-    public void setColor(String color) {
-        this.color=color;
-        setSymbol(color);
-    }
-    public void setSymbol(String color){
-        this.symbol = (color.equals("Black")) ? '\u265C' : '\u2656';
-    }
-    public char getSymbol(){
-        return this.symbol;
-    }
-    public String getColor(){
-        return super.color;
-    }
-    public int getValue(){
-        return this.VALUE;
     }
     @Override
     public String toString() {
