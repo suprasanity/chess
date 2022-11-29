@@ -32,7 +32,14 @@ public class Square {
     public static boolean isValidSquare(Square other){
         return false;
     }
-    public static boolean isOccupied(Square other){return false;}
+    public static boolean isOccupiedSquare(int nextMove){
+        for(Move move : Board.p.getOpponentAttacksOnSquare()){
+            if(move.getDestCoord() == nextMove){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
