@@ -43,8 +43,9 @@ public class Knight implements Piece{
                             .get(index).getPiece()));// move constructor(destination coord, current coord,piece,) 
                         }
                         else{
-                            if(Board.lesCase.get(nextPossibleSquare).getPiece()
-                                .getColor().equals("White")){
+                            if(!(Board.lesCase.get(nextPossibleSquare).getPiece()
+                                .getColor().equals(square.getPiece().getColor()))){
+
                                 legalMove.add(new Move(nextPossibleSquare,index, Board.lesCase
                                 .get(index).getPiece()));
                             }

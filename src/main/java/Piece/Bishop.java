@@ -27,6 +27,7 @@ public class Bishop implements Piece{
     public void setSymbol(String color){
         this.symbol = (color.equals("Black")) ? '\u265D': '\u2657';
     }
+    
     public List<Move> legalMovSquares(Square square){
         int index=0;
         int buff=1;
@@ -52,8 +53,9 @@ public class Bishop implements Piece{
                                 buff++;
                             }
                             else{
-                                if(Board.lesCase.get(nextPossibleSquare).getPiece()
-                                    .getColor().equals("White")){
+                                if(!(Board.lesCase.get(nextPossibleSquare).getPiece()
+                                    .getColor().equals(square.getPiece().getColor()))){
+
                                     legalMove.add(new Move(nextPossibleSquare,index, Board.lesCase
                                     .get(index).getPiece()));
                                     break;

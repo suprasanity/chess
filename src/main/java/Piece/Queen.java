@@ -38,15 +38,15 @@ public class Queen implements Piece{
                         if(nextPossibleSquare<=Board.END_INDEX_BOARD 
                         && nextPossibleSquare>=Board.START_INDEX_BOARD){
                             if(Board.lesCase.get(nextPossibleSquare).getPiece()==null){
-                                Piece piece = new Queen();
                                 legalMove.add(new Move(nextPossibleSquare,index,Board.lesCase
                                 .get(index).getPiece()));// move constructor(destination coord, current coord,piece,) 
                                 nextPossibleSquare+=direction;
                                 buff++;
                             }
                             else{
-                                if(Board.lesCase.get(nextPossibleSquare).getPiece()
-                                    .getColor().equals("White")){
+                                if(!(Board.lesCase.get(nextPossibleSquare).getPiece()
+                                    .getColor().equals(square.getPiece().getColor()))){
+
                                     legalMove.add(new Move(nextPossibleSquare,index,Board.lesCase
                                     .get(index).getPiece()));
                                     break;

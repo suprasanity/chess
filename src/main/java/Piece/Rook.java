@@ -42,11 +42,12 @@ public class Rook implements Piece {
                                 buff++;
                             }
                             else{
-                                if(Board.lesCase.get(nextPossibleSquare).getPiece()
-                                    .getColor().equals("White")){
+                                if(!(Board.lesCase.get(nextPossibleSquare).getPiece()
+                                    .getColor().equals(square.getPiece().getColor()))){
+
                                     legalMove.add(new Move(nextPossibleSquare,index,Board.lesCase
                                     .get(index).getPiece()));
-                                    break;
+                                    break; // maybe impl libellé ?
                                 }else{break;}
                             }
                         }else{break;}
