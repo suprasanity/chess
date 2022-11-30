@@ -31,10 +31,28 @@ public class Player {
         }
         return listOfPiece;
     }
-    public List<Move> getAttacksOnSquare(){
+    public List<Move> getAttacksOnSquare(){ // le cas du pat 
         List<Move> allOpponentMove = new ArrayList<>();
-        
-        
+        for(Square square : Board.lesCase){
+            if(square.getPiece() instanceof Pawn){
+                Pawn pawn = (Pawn)square.getPiece();
+                if(square.getPiece().getColor().equals(getCurrentColor())){
+                    for(Move move : pawn.attackMove(square)){//need check
+                        allOpponentMove.add(move);
+                    }
+                }
+            }
+            else{
+                    if(square.getPiece() instanceof Piece){
+                        if(square.getPiece().getColor().equals(getCurrentColor())){
+                            for(Move move : square.getPiece().legalMovSquares(square)){//need check
+                                allOpponentMove.add(move);
+                            }
+                        }
+                    }
+                
+            } 
+        }
         return allOpponentMove;
     }
     

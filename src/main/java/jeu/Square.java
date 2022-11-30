@@ -1,5 +1,7 @@
 package jeu;
 
+import java.util.List;
+
 import Piece.Piece;
 
 public class Square {
@@ -32,9 +34,26 @@ public class Square {
     public static boolean isValidSquare(Square other){
         return false;
     }
-    public static boolean isOccupiedSquare(int nextMove){
-        for(Move move : Board.p.getOpponentAttacksOnSquare()){
-            if(move.getDestCoord() == nextMove){
+    public static boolean isOccupiedSquare(Move mv){
+        List<Move> qsd;
+        
+        if(mv.getPiece().getColor().equals("Black")){
+            if(Board.p.getCurrentColor().equals("Black")){
+                qsd = Board.p.getOpponentAttacksOnSquare();
+            }
+            else{
+                qsd = Board.p.getAttacksOnSquare();
+            }
+        }else{
+            if(Board.p.getCurrentColor().equals("White")){
+                qsd = Board.p.getOpponentAttacksOnSquare();
+            }
+            else{
+                qsd = Board.p.getAttacksOnSquare();
+            }
+        }
+        for(Move move : qsd){
+            if(move.getDestCoord() == mv.getDestCoord()){
                 return true;
             }
         }

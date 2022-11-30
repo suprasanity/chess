@@ -15,6 +15,9 @@ public class Move {
         Board.lesCase.get(destCoord).setPiece(this.piece);
         Board.lesCase.get(currCoord).setPiece(null);
     }
+    public Piece getPiece(){
+        return this.piece;
+    }
     public int getCurrCoord(){
         return this.currCoord;
     }

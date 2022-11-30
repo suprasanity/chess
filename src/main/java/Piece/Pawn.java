@@ -104,7 +104,7 @@ public class Pawn implements Piece {
             }
             // pawn move 2 squares forward 
             if(square.getNumber() == 2 && square.getPiece().getColor().equals("White") ||
-               square.getNumber()== 7 && square.getPiece().getColor().equals("Black")){
+               square.getNumber()== 7 && square.getPiece().getColor().equals("Black")){ // isfirst better
                 listDirection = new int[]{8,16};
                 for(int direction : listDirection){
                     int nextPossibleSquare = direction * directionSide + index;

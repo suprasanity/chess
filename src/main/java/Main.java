@@ -58,12 +58,11 @@ public class Main {
         }
         
         System.out.println(Square.isOccupiedSquare(20));*/
-        
-        for(Move move : Board.lesCase.get(38).getPiece()
-            .legalMovSquares(Board.lesCase.get(38))){ // check class king 
+        King mpd = (King)Board.lesCase.get(27).getPiece();
+        for(Move move : mpd
+            .moveSquaresReal(Board.lesCase.get(27))){ // check class king 
             
-            System.out.print(" descoord "+move.getDestCoord());
-            System.out.print("Curr Cord "+move.getCurrCoord());
+            
             System.out.println("move "+move);
         }
         //System.out.println(Square.isOccupiedSquare(22));
