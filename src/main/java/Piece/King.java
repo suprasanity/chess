@@ -17,6 +17,16 @@ public class King implements Piece{
     public boolean isFirstMove(){
         return this.firstMove;
     }
+    //filtre tous les moves possible => isoccupiedsquare
+    public List<Move> moveSquaresReal(Square square){
+        List<Move> realMove = new ArrayList<>();
+        for(Move mv : legalMovSquares(square)){
+            if(!(Square.isOccupiedSquare(mv))){
+                realMove.add(mv);
+            }
+        }
+        return realMove;
+    }
     public List<Move> legalMovSquares(Square square){ // castling ? 
         List<Move> legalMove = new ArrayList<>();
         int[] listDirection;
@@ -44,7 +54,7 @@ public class King implements Piece{
                             }
                             else{
                                 if(!(Board.lesCase.get(nextPossibleSquare).getPiece()
-                                    .getColor().equals(Board.p.getOpponnentColor()))){
+                                    .getColor().equals(square.getPiece().getColor()))){
                                     legalMove.add(new Move(nextPossibleSquare,index,Board.lesCase
                                     .get(index).getPiece()));
                                 }
@@ -64,7 +74,7 @@ public class King implements Piece{
                     }
                     else{
                         if(!(Board.lesCase.get(nextPossibleSquare).getPiece().getColor()
-                        .equals(Board.p.getOpponnentColor()))){
+                        .equals(square.getPiece().getColor()))){
                             legalMove.add(new Move(nextPossibleSquare, index, Board.lesCase.get(index).getPiece()));
                         }
                     }
