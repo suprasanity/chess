@@ -8,8 +8,8 @@ public class CastledQueenSide extends Castled{
     public CastledQueenSide(King pieceKing, 
                             Rook pieceRook,
                             Player player,
-                            int currCoord,
-                            int destCoord){
-        super(pieceKing,pieceRook,player,currCoord,destCoord);
+                            Move moveRook,
+                            Move moveKing){
+        super(pieceKing,pieceRook,player,moveRook,moveKing); 
     }
 }

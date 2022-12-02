@@ -3,6 +3,7 @@ package Piece;
 
 import jeu.Board;
 import jeu.Move;
+import jeu.PawnPromotion;
 import jeu.Player;
 import jeu.Square;
 
@@ -12,17 +13,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class Pawn implements Piece {
-    private String color;
+public class Pawn extends Piece {
     private final int VALUE = 1;
-    private char symbol;
-    private boolean firstMove = false;
-    public void setFirstMove(){this.firstMove = true;}
-    public void setColor(String color){
-        this.color=color;
-      
+    private boolean firstMove = true;
+    public Pawn(String color, int position){
+        super(color, position);
         setSymbol(color);
     }
+    public void setFirstMove(){this.firstMove = false;}
     public void setSymbol(String color){
         this.symbol = (color.equals("Black")) ? '\u265F' : '\u2659';
     }
@@ -120,10 +118,27 @@ public class Pawn implements Piece {
             else{ // move 1 square
                 int direction = 8;
                 int nextPossibleSquare = direction * directionSide + index;
-                if(nextPossibleSquare>=Board.START_INDEX_BOARD){
-                    if(Board.lesCase.get(nextPossibleSquare).getPiece() == null){
-                        legalMove.add(new Move(nextPossibleSquare, index,Board.lesCase
-                        .get(index).getPiece()));
+                if(nextPossibleSquare + direction<Board.START_INDEX_BOARD){
+                    Queen pieceQueen = new Queen(square.getPiece().getColor(),nextPossibleSquare);
+                    Pawn currPawn = (Pawn)square.getPiece();
+                    legalMove.add(new PawnPromotion(currPawn,
+                    pieceQueen,
+                    new Move(nextPossibleSquare,index,square.getPiece())));
+                    Knight pieceKnight = new Knight(square.getPiece().getColor(),nextPossibleSquare);
+                    legalMove.add(new PawnPromotion(currPawn,
+                    pieceKnight,
+                    new Move(nextPossibleSquare,index,square.getPiece())));
+                    Rook pieceRook = new Rook(square.getPiece().getColor(),nextPossibleSquare);
+                    legalMove.add(new PawnPromotion(currPawn,
+                    pieceRook,
+                    new Move(nextPossibleSquare,index,square.getPiece())));
+                }
+                else{
+                    if(nextPossibleSquare>=Board.START_INDEX_BOARD){
+                        if(Board.lesCase.get(nextPossibleSquare).getPiece() == null){
+                            legalMove.add(new Move(nextPossibleSquare, index,Board.lesCase
+                            .get(index).getPiece()));
+                        }
                     }
                 }
             } 
