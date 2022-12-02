@@ -30,3 +30,18 @@ public class Move {
     }
     //castling, promotion, pawn attacks,  
 }
+/* 
+public class AttacksPiece implements Move{
+    public AttacksPiece(){
+
+    }
+}
+public class PawnPromotion implements Move{
+    public PawnPromotion(){
+
+    }
+}*/
+
+
+
+

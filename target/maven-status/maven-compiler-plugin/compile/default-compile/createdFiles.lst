@@ -1,4 +1,14 @@
+Piece\Pawn.class
+jeu\Board.class
+Piece\Piece.class
+Piece\Rook.class
+Piece\King.class
+Piece\Knight.class
 Main.class
-Piece.class
-pion.class
-Plateau.class
+jeu\Move.class
+Piece\Bishop.class
+Piece\Queen.class
+jeu\Player.class
+test\test.class
+jeu\Square.class
+Guest.class

@@ -34,6 +34,14 @@ public class Square {
     public static boolean isValidSquare(Square other){
         return false;
     }
+    public static boolean isOccupiedSquareT(int destCoord){
+        for(Move move : Board.p.getOpponentAttacksOnSquare()){
+            if(move.getDestCoord() == destCoord){
+                return true;
+            }
+        }
+        return false;
+    }
     public static boolean isOccupiedSquare(Move mv){
         List<Move> qsd;
         

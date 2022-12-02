@@ -58,19 +58,32 @@ public class Main {
         }
         
         System.out.println(Square.isOccupiedSquare(20));*/
-        King mpd = (King)Board.lesCase.get(27).getPiece();
+        /*King mpd = (King)Board.lesCase.get(27).getPiece();
         for(Move move : mpd
             .moveSquaresReal(Board.lesCase.get(27))){ // check class king 
             
             
             System.out.println("move "+move);
-        }
+        }*/
         //System.out.println(Square.isOccupiedSquare(22));
         //Guest g1=new Guest("yann");
 
         //Cavalier p = new Cavalier();
         //p.PrintUnicode();
-
+        /*Board.lesCase.get(57).setPiece(null);
+        Board.lesCase.get(58).setPiece(null);
+        Board.lesCase.get(59).setPiece(null);*/
+        //Board.lesCase.get(50).setPiece(new Queen());
+        //Board.lesCase.get(50).getPiece().setColor("Black");
+        Board.lesCase.get(61).setPiece(null);
+        Board.lesCase.get(62).setPiece(null);
+        //Board.lesCase.get(52).setPiece(new Pawn());
+        Board.lesCase.get(51).getPiece().setColor("Black");
+        mp.afficherPlateau();
+        for(Move mv : Board.p.kingCastled()){
+            System.out.println(mv);
+        }
+        
 
     }
 
