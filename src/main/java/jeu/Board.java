@@ -46,6 +46,9 @@ public class Board {
 
     public void initPiece() {
         for (Square c : lesCase) {
+            if(c.getNumber()==5 && c.getLetter()=='A'){
+                c.setPiece(new King(Piece.PieceType.KING, "White", c, true));
+            }
             if(c.getNumber()>4){
                 if(c.getNumber()==7){
                     c.setPiece(new Pawn(Piece.PieceType.PAWN, "Black", c, true));

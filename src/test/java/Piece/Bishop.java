@@ -1,4 +1,5 @@
 package Piece;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-class kingTest {
+class BishopTest {
     /**
      * Methods under test:
      *
@@ -29,10 +30,11 @@ class kingTest {
         Board p = new Board(new Player(MesConstantes.WHITE,"Yann"));
         List <Move> legalMove = new ArrayList<>();
         for(Square s :Board.lesCase){
-            if(s.getLetter() == 'A' && s.getNumber() == 5){
+            if(s.getLetter() == 'C' && s.getNumber() == 3){
                 legalMove.addAll(s.getPiece().legalMovSquares(s));
             }
         }
-        assertEquals(3, legalMove.size());
+        assertEquals(0, legalMove.size());
     }
 }
+

@@ -28,21 +28,9 @@ public class Pawn extends Piece {
         int index = 0;
         int[] listDirection;
         if (square.getPiece() instanceof Pawn) {
-            //case if row 7 or row 2
-//            for(Square carre : Board.lesCase){// en trop ? mettre getid pour chaque case ?
-//                if(square.equals(carre)){
-//                    index = Board.lesCase.indexOf(carre);
-//                }
-//            }
-            // La méthode equals de la classe Square a été redéfini pour comparer les coordonnées des cases
-            // on peut donc utiliser la méthode indexOf de la classe ArrayList
             index = Board.lesCase.indexOf(square);
-
-            //pawn attack
-            //TODO faire le test pour savoir si on est blanc ou noir
-            //legalMoveSquareForAttack(legalMove, index);
-            // pawn just move
             legalMoveStandard(square, legalMove, index);
+            legalMoveSquareForAttack(legalMove,index);
         }
         return legalMove;
     }
@@ -105,17 +93,14 @@ public class Pawn extends Piece {
         }
     }
 
-    private  void legalMoveSquareForAttack
-            (List<Move> legalMove, int index) {
+    private  void legalMoveSquareForAttack(List<Move> legalMove, int index) {
         int[] listDirection;
         // pawn attack piece each side if exist
 
-        listDirection = new int[]{-7, -9};
+        listDirection = new int[]{9};
         for (int direction : listDirection) {
             int nextPossibleMove = direction + index;
-            if (Board.lesCase.get(nextPossibleMove).getPiece() != null
-                    && Objects.equals(Board.lesCase.get(nextPossibleMove).getPiece().getColor(),
-                    Board.p.getOpponnentColor())) {
+            if (Board.lesCase.get(nextPossibleMove).getPiece() != null && Objects.equals(Board.lesCase.get(nextPossibleMove).getPiece().getColor(), Board.p.getOpponnentColor())) {
                 legalMove.add(new Move(nextPossibleMove, index));
             }
         }

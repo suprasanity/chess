@@ -43,8 +43,8 @@ public class Bishop extends Piece {
                                 nextPossibleSquare += direction;
                                 buff++;
                             } else {
-                                if (Board.lesCase.get(nextPossibleSquare).getPiece()
-                                        .getColor().equals("White")) {
+                                if (!Board.lesCase.get(nextPossibleSquare).getPiece()
+                                        .getColor().equals(square.getPiece().getColor())) {
                                     legalMove.add(new Move(nextPossibleSquare, index));
                                     break;
                                 } else {

@@ -40,12 +40,12 @@ public class Knight extends Piece {
                     if(nextPossibleSquare<=Board.END_INDEX_BOARD
                             && nextPossibleSquare>=Board.START_INDEX_BOARD){
                         if(Board.lesCase.get(nextPossibleSquare).getPiece()==null){
-
-                            legalMove.add(new Move(nextPossibleSquare,index));// move constructor(destination coord, current coord,piece,)
+                            legalMove.add(new Move(nextPossibleSquare,index) );
                         }
                         else{
-                            if(! Board.lesCase.get(nextPossibleSquare).getPiece()
-                                    .getColor().equals(this.color)){
+                            if(!(Board.lesCase.get(nextPossibleSquare).getPiece()
+                                    .getColor().equals(square.getPiece().getColor()))){
+
                                 legalMove.add(new Move(nextPossibleSquare,index));
                             }
                         }

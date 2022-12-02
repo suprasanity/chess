@@ -20,7 +20,11 @@ public class Player {
     }
 
     public String getOpponnentColor() {
-        return (this.color.equals("Black") ? "Black" : "White");
+       if (this.color.equals("Black")) {
+           return "White";
+       } else {
+           return "Black";
+       }
     }
 
     public List<Piece> getAllPieces(List<Square> board) {
@@ -31,22 +35,6 @@ public class Player {
             }
         }
         return listOfPiece;
-    }
-
-    public List<Square> getAttacksOnSquare(List<Square> Board) {
-        return null;
-    }
-
-    public List<Square> getOpponentAttacksOnSquare(List<Square> Board) {
-        return null;
-    }
-
-    public static int getDirection() {
-        return 1;
-    }
-
-    public static int getOpponentDirection() {
-        return -1;
     }
 
     public List<Move> getLegalMoves() {

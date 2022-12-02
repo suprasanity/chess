@@ -3,12 +3,12 @@ package Piece;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jeu.Board;
-import jeu.MesConstantes;
-import jeu.Player;
-import jeu.Square;
+import jeu.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class PawnTest {
     /**
@@ -36,23 +36,25 @@ class PawnTest {
 
     @Test
     void testLegalMovSquaresWhite() {
-        Board p = new Board(new Player(MesConstantes.WHITE,"Yann"));
-
-        Pawn pawn = new Pawn(Piece.PieceType.PAWN, MesConstantes.WHITE, new Square('A', 2), true);
-        Square maCaseATester=new Square('A', 2);
-        maCaseATester.setPiece(pawn);
-        assertTrue(pawn.legalMovSquares(maCaseATester).contains(new Square('A', 3)));
 
     }
 
     @Test
+    void testLegalMovSquaresWhiteWithAttaque(){
+        Board p = new Board(new Player(MesConstantes.WHITE,"Yann"));
+        List <Move> legalMove = new ArrayList<>();
+        for(Square s :Board.lesCase){
+            if(s.getLetter() == 'A' && s.getNumber() == 6){
+                legalMove.addAll(s.getPiece().legalMovSquares(s));
+            }
+        }
+        assertEquals(1, legalMove.size());
+    }
+
+
+    @Test
     void testLegalMovSquaresJoueurBlack() {
         Board p = new Board(new Player(MesConstantes.BLACK,"Yann"));
-
-        Pawn pawn = new Pawn(Piece.PieceType.PAWN, MesConstantes.BLACK, new Square('A', 7), true);
-        Square maCaseATester=new Square('A', 7);
-        maCaseATester.setPiece(pawn);
-        assertTrue(pawn.legalMovSquares(maCaseATester).contains(new Square('A', 3)));
 
     }
 

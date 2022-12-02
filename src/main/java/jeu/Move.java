@@ -1,11 +1,10 @@
 package jeu;
 
-import Piece.Piece;
 
 public class Move {
     private int destCoord;
     private int currCoord;
-    public Move(int destCoord, int currCoor){
+    public Move(int destCoord, int currCoord){
         this.destCoord = destCoord;
         this.currCoord = currCoord;
     }
