@@ -11,6 +11,20 @@
     <dependencies>
 
             <dependency>
+                    <groupId>org.mockito</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                    <version>2.20.0</version>
+            </dependency>
+
+
+            <dependency>
+                    <groupId>org.junit</groupId>
+                    <artifactId>junit5-api</artifactId>
+                    <version>5.0.0-ALPHA</version>
+            </dependency>
+
+
+            <dependency>
                     <groupId>junit</groupId>
                     <artifactId>junit</artifactId>
                     <version>4.13.2</version>
@@ -48,4 +62,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
+
+
+        <dependencyManagement>
+        
+
+                <dependencies>
+                
+
+                        <dependency>
+                                <groupId>org.opentest4j</groupId>
+                                <artifactId>opentest4j</artifactId>
+                                <version>1.0.0</version>
+                        </dependency>
+
+                </dependencies>
+
+        </dependencyManagement>
 </project>

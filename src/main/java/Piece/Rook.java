@@ -13,7 +13,7 @@ public class Rook implements Piece {
     private char symbol;
     private final int[] listDirection = new int[]{-1,1,8,-8};
     public boolean isFirstMove(){
-        return false;
+        return true;
     }
     public List<Move> legalMovSquares(Square square){
         int index=0;

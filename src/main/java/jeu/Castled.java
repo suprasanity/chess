@@ -27,8 +27,10 @@ public class Castled extends Move{
         // move call method makeMove also work, choose which one is better
         King k =(King)Board.lesCase.get(moveKing.getCurrCoord()).getPiece();
         Board.lesCase.get(moveKing.getDestCoord()).setPiece(k);
+        Board.lesCase.get(moveKing.getCurrCoord()).setPiece(null);
         Rook r = (Rook)Board.lesCase.get(moveRook.getCurrCoord()).getPiece();
         Board.lesCase.get(moveRook.getDestCoord()).setPiece(r);
+        Board.lesCase.get(moveRook.getCurrCoord()).setPiece(null);
         pieceKing.setFirstMove();
         Board.p.setCastled(true);
     }

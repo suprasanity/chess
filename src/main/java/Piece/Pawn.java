@@ -13,16 +13,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class Pawn extends Piece {
+public class Pawn implements Piece {
     private final int VALUE = 1;
     private boolean firstMove = true;
-    public Pawn(String color, int position){
-        super(color, position);
-        setSymbol(color);
-    }
+    private String color;
+    private char symbol;
     public void setFirstMove(){this.firstMove = false;}
     public void setSymbol(String color){
         this.symbol = (color.equals("Black")) ? '\u265F' : '\u2659';
+
+    }
+    public void setColor(String color) {
+        this.color=color;
+        setSymbol(color);
     }
     public char getSymbol(){
         return this.symbol;
@@ -118,7 +121,7 @@ public class Pawn extends Piece {
             else{ // move 1 square
                 int direction = 8;
                 int nextPossibleSquare = direction * directionSide + index;
-                if(nextPossibleSquare + direction<Board.START_INDEX_BOARD){
+                /*if(nextPossibleSquare + direction<Board.START_INDEX_BOARD){
                     Queen pieceQueen = new Queen(square.getPiece().getColor(),nextPossibleSquare);
                     Pawn currPawn = (Pawn)square.getPiece();
                     legalMove.add(new PawnPromotion(currPawn,
@@ -132,15 +135,15 @@ public class Pawn extends Piece {
                     legalMove.add(new PawnPromotion(currPawn,
                     pieceRook,
                     new Move(nextPossibleSquare,index,square.getPiece())));
-                }
-                else{
-                    if(nextPossibleSquare>=Board.START_INDEX_BOARD){
-                        if(Board.lesCase.get(nextPossibleSquare).getPiece() == null){
-                            legalMove.add(new Move(nextPossibleSquare, index,Board.lesCase
+                }*/
+                
+                if(nextPossibleSquare>=Board.START_INDEX_BOARD){
+                    if(Board.lesCase.get(nextPossibleSquare).getPiece() == null){
+                        legalMove.add(new Move(nextPossibleSquare, index,Board.lesCase
                             .get(index).getPiece()));
-                        }
                     }
                 }
+                
             } 
         }
         return legalMove;     

@@ -30,7 +30,7 @@ public class Board {
         return listOfChar;
     }
     
-    private void initCouleur() {
+    private void initCouleur() { // change maybe put in the method class initcase?
         for (Square c : lesCase) {
 
             if (c.getNumber() == 1 || c.getNumber() == 2) {
@@ -81,9 +81,9 @@ public class Board {
     }
 
     public void afficherPlateau() {
-        for (Square c : lesCase) {
+        /*for (Square c : lesCase) {
             System.out.println(c);
-        }
+        }*/
         int buff = 0;
         System.out.print(" ");
         for(char letter : (p.getCurrentColor().equals("White"))

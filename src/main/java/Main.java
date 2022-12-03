@@ -70,20 +70,25 @@ public class Main {
 
         //Cavalier p = new Cavalier();
         //p.PrintUnicode();
-        /*Board.lesCase.get(57).setPiece(null);
+        Board.lesCase.get(57).setPiece(null);
         Board.lesCase.get(58).setPiece(null);
-        Board.lesCase.get(59).setPiece(null);*/
+        Board.lesCase.get(59).setPiece(null);
         //Board.lesCase.get(50).setPiece(new Queen());
         //Board.lesCase.get(50).getPiece().setColor("Black");
-        Board.lesCase.get(61).setPiece(null);
-        Board.lesCase.get(62).setPiece(null);
+        //Board.lesCase.get(61).setPiece(null);
+        //Board.lesCase.get(62).setPiece(null);
         //Board.lesCase.get(52).setPiece(new Pawn());
-        Board.lesCase.get(51).getPiece().setColor("Black");
+        //Board.lesCase.get(51).getPiece().setColor("Black");
+        Board.lesCase.get(16).setPiece(new Knight());
+        Board.lesCase.get(16).getPiece().setColor("Black");
+        System.out.println(Board.p.isCastled());
         mp.afficherPlateau();
         for(Move mv : Board.p.kingCastled()){
             System.out.println(mv);
+            mv.makeMove();
         }
-        
+        System.out.println(Board.p.isCastled());
+        mp.afficherPlateau();
 
     }
 

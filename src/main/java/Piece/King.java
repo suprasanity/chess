@@ -11,7 +11,7 @@ public class King implements Piece{
     private String color;
     private final int VALUE = -1;
     private char symbol;
-    private boolean firstMove=false;
+    private boolean firstMove=true;
     //private final int[] listDirection = new int[]{-8,-9,-1,9,8,7,1,-7}; 
     public void setFirstMove(){this.firstMove = true;}
     public boolean isFirstMove(){

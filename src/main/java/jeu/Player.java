@@ -126,12 +126,20 @@ public class Player {
         // king side
         if(Board.lesCase.get(60).getPiece() instanceof King
         && Board.lesCase.get(63).getPiece() instanceof Rook){
-            if(!(Board.p.isCastled())){
-                if(Board.lesCase.get(61).getPiece() == null
-                && Board.lesCase.get(62).getPiece() == null){
-                    if(!Square.isOccupiedSquareT(61)
-                    && !Square.isOccupiedSquareT(62)){
-                        System.out.println("Ajouté");
+            if(Board.lesCase.get(60).getPiece().isFirstMove()
+            && Board.lesCase.get(63).getPiece().isFirstMove()){
+                if(!(Board.p.isCastled())){
+                    if(Board.lesCase.get(61).getPiece() == null
+                    && Board.lesCase.get(62).getPiece() == null){
+                        if(!Square.isOccupiedSquareT(61)
+                        && !Square.isOccupiedSquareT(62)){
+                            King k = (King)Board.lesCase.get(60).getPiece();
+                            Rook r = (Rook)Board.lesCase.get(63).getPiece();
+                            castleMove.add(new Castled(k,
+                            r,
+                             Board.p, new Move(61, 63, null),
+                              new Move(62, 60, null)));
+                        }
                     }
                 }
             }
@@ -139,14 +147,22 @@ public class Player {
         // queen side
         if(Board.lesCase.get(60).getPiece() instanceof King
         && Board.lesCase.get(56).getPiece() instanceof Rook){
-            if(!(Board.p.isCastled())){
-                if(Board.lesCase.get(57).getPiece() == null
-                && Board.lesCase.get(58).getPiece() == null
-                && Board.lesCase.get(59).getPiece()== null){
-                    if(!Square.isOccupiedSquareT(57)
-                    && !Square.isOccupiedSquareT(58)
-                    && !Square.isOccupiedSquareT(59)){
-                        System.out.println("Ajouté");
+            if(Board.lesCase.get(60).getPiece().isFirstMove()
+            && Board.lesCase.get(56).getPiece().isFirstMove()){
+                if(!(Board.p.isCastled())){
+                    if(Board.lesCase.get(57).getPiece() == null
+                    && Board.lesCase.get(58).getPiece() == null
+                    && Board.lesCase.get(59).getPiece()== null){
+                        if(!Square.isOccupiedSquareT(57)
+                        && !Square.isOccupiedSquareT(58)
+                        && !Square.isOccupiedSquareT(59)){
+                            King k = (King)Board.lesCase.get(60).getPiece();
+                            Rook r = (Rook)Board.lesCase.get(56).getPiece();
+                            castleMove.add(new Castled(k,
+                            r,
+                             Board.p, new Move(59, 56, null),
+                              new Move(58, 60, null)));
+                        }
                     }
                 }
             }
