@@ -6,6 +6,7 @@ import java.util.List;
 import Piece.King;
 import Piece.Pawn;
 import Piece.Piece;
+import Piece.Queen;
 import Piece.Rook;
 
 public class Player {
@@ -32,6 +33,22 @@ public class Player {
             }
         }
         return listOfPiece;
+    }
+    public List<Move> getAllCurrMove(){
+        List<Move> allOpponentMove = new ArrayList<>();
+        for(Square square : Board.lesCase){
+            
+            if(square.getPiece() instanceof Piece){
+                if(square.getPiece().getColor().equals(getCurrentColor())){
+                    for(Move move : square.getPiece().legalMovSquares(square)){//need check
+                            allOpponentMove.add(move);
+                    }
+                }
+            }
+                
+        }
+        
+        return allOpponentMove;
     }
     public List<Move> getAttacksOnSquare(){ // le cas du pat 
         List<Move> allOpponentMove = new ArrayList<>();
@@ -83,6 +100,50 @@ public class Player {
         }
         return allOpponentMove;
     }
+    public boolean isCheck(){
+        King q = new King();
+        Square s;
+        int indexSquare = 0;
+        for(Square square : Board.lesCase){
+            if(square.getPiece() instanceof King 
+            && square.getPiece().getColor().equals(getCurrentColor())){
+                q = (King)square.getPiece();
+                s = square;
+                indexSquare = Board.lesCase.indexOf(s);
+                break;
+            }
+        }
+        for(Move move : Board.p.getOpponentAttacksOnSquare()){
+            if(move.getDestCoord() == indexSquare){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Move> listCheckAble(){
+        List<Move> legalMove = new ArrayList<>();
+        for(Move move : Board.p.getAttacksOnSquare()){
+            move.makeMove();
+            if(!isCheck()){
+                legalMove.add(move);
+            }
+            move.undo();
+        }
+        return legalMove;
+    }
+    public List<Move> getAttacksOnSquareWithoutCheck(){
+        List<Move> legalMove = new ArrayList<>();
+        for(Move move : Board.p.getAllCurrMove()){
+            move.makeMove();
+            if(!isCheck()){
+                legalMove.add(move);
+            }
+            move.undo();
+        }
+        return legalMove;
+    }
+
     public boolean isCastled(){
         return this.castled;
     }

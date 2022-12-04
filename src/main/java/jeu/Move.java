@@ -15,6 +15,10 @@ public class Move {
         Board.lesCase.get(destCoord).setPiece(this.piece);
         Board.lesCase.get(currCoord).setPiece(null);
     }
+    public void undo(){
+        Board.lesCase.get(currCoord).setPiece(this.piece);
+        Board.lesCase.get(destCoord).setPiece(null);
+    }
     public Piece getPiece(){
         return this.piece;
     }
