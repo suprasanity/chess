@@ -19,34 +19,34 @@ public class Knight extends Piece {
     public boolean isFirstMove(){
         return false;
     }
-    public List<Move> legalMovSquares(Square square){
+    public List<Move> legalMovSquares(Square square,Board board){
         int index=0;
         int buff=1;
         List<Move> legalMove = new ArrayList<>();
         if(square.getPiece() instanceof Knight){
-            for(Square findSquare : Board.lesCase){// en trop ? mettre getid pour chaque case ?
+            for(Square findSquare : board.lesCase){// en trop ? mettre getid pour chaque case ?
                 if(square.equals(findSquare)){
-                    index = Board.lesCase.indexOf(findSquare);
+                    index = board.lesCase.indexOf(findSquare);
                 }
             }
 
             for(int direction : listDirection){
                 int nextPossibleSquare = direction + index;
 
-                if((isColumnExclusionLeft(buff, square, nextPossibleSquare) ||
-                        isSecondColumnExclusionLeft(buff, square, nextPossibleSquare)) ||
-                        isColumnExclusionRight(buff, square, nextPossibleSquare) ||
-                        isSecondColumnExclusionRight(buff, square, nextPossibleSquare) ){
+                if((isColumnExclusionLeft(buff, square, nextPossibleSquare,board) ||
+                        isSecondColumnExclusionLeft(buff, square, nextPossibleSquare,board)) ||
+                        isColumnExclusionRight(buff, square, nextPossibleSquare,board) ||
+                        isSecondColumnExclusionRight(buff, square, nextPossibleSquare,board) ){
                     if(nextPossibleSquare<=Board.END_INDEX_BOARD
                             && nextPossibleSquare>=Board.START_INDEX_BOARD){
-                        if(Board.lesCase.get(nextPossibleSquare).getPiece()==null){
+                        if(board.lesCase.get(nextPossibleSquare).getPiece()==null){
 
-                            legalMove.add(new Move(nextPossibleSquare,index));// move constructor(destination coord, current coord,piece,)
+                            legalMove.add(new Move(nextPossibleSquare,index,square.getPiece()));// move constructor(destination coord, current coord,piece,)
                         }
                         else{
-                            if(! Board.lesCase.get(nextPossibleSquare).getPiece()
+                            if(! board.lesCase.get(nextPossibleSquare).getPiece()
                                     .getColor().equals(this.color)){
-                                legalMove.add(new Move(nextPossibleSquare,index));
+                                legalMove.add(new Move(nextPossibleSquare,index,square.getPiece()));
                             }
                         }
                     }
@@ -56,34 +56,34 @@ public class Knight extends Piece {
         }
         return legalMove;
     }
-    public boolean isSecondColumnExclusionLeft(int step,Square currSquare,int indexNextSquare){
-        return isColumnExclusionLeft(step+1, currSquare, indexNextSquare);
+    public boolean isSecondColumnExclusionLeft(int step,Square currSquare,int indexNextSquare,Board board){
+        return isColumnExclusionLeft(step+1, currSquare, indexNextSquare,board);
     }
-    public boolean isSecondColumnExclusionRight(int step,Square currSquare, int indexNextSquare){
-        return isColumnExclusionRight(step+1,currSquare, indexNextSquare);
+    public boolean isSecondColumnExclusionRight(int step,Square currSquare, int indexNextSquare,Board board){
+        return isColumnExclusionRight(step+1,currSquare, indexNextSquare,board);
     }
-    public boolean isColumnExclusionLeft(int step,Square currSquare,int indexNextSquare){ // static ?
+    public boolean isColumnExclusionLeft(int step,Square currSquare,int indexNextSquare,Board board){ // static ?
         char currLetter = currSquare.getLetter();
         int indexCurrLetter = Board.LETTER.indexOf(currLetter);
         int indexNextLetter;
         try{
             indexNextLetter= indexCurrLetter - step;
             Board.LETTER.get(indexNextLetter);
-            return (Board.lesCase.get(indexNextSquare).getLetter()
+            return (board.lesCase.get(indexNextSquare).getLetter()
                     ==(Board.LETTER.get(indexNextLetter))) ? true : false;
 
         }catch(Exception e){
             return false;
         }
     }
-    public boolean isColumnExclusionRight(int step, Square currSquare,int indexNextSquare){
+    public boolean isColumnExclusionRight(int step, Square currSquare,int indexNextSquare,Board board){
         char currLetter = currSquare.getLetter();
         int indexCurrLetter = Board.LETTER.indexOf(currLetter);
         int indexNextLetter;
         try{
             indexNextLetter= indexCurrLetter + step;
             Board.LETTER.get(indexNextLetter);
-            return (Board.lesCase.get(indexNextSquare).getLetter()
+            return (board.lesCase.get(indexNextSquare).getLetter()
                     ==(Board.LETTER.get(indexNextLetter))) ? true : false;
 
         }catch(Exception e){

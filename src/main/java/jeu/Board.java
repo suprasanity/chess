@@ -1,35 +1,64 @@
 package jeu;
 
 import Piece.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    public static Player playerToPlay;
-    public static List<Square> lesCase = new ArrayList<>();
+
+
+
+    public  List<Square> getLesCase() {
+        return lesCase;
+    }
+
+
+    public void setLesCase(List<Square> lesCase) {
+        this.lesCase = lesCase;
+    }
+
+    public  List<Square> lesCase = new ArrayList<>();
     public static final List<Character> LETTER = arrayToListChar("ABCDEFGH".toCharArray());
     public static final int START_INDEX_BOARD = 0;
     public static final int END_INDEX_BOARD = 63;
-    public static Player p;
+    public  Player p;
 
-    public Board(Player player) {
-        this.p = player;
+
+
+    public  Player whitePlayer;
+
+
+
+    public  Player blackPlayer;
+    public  Player opponentPlayer;
+
+
+    public Board() {
         initCase();
         initPiece();
-
-
     }
-    private static List<Character> arrayToListChar(char[] array){
+
+    public void initPlayeur(Player firstPlayer, Player secondPlayer) {
+        this.p = firstPlayer;
+        //on considère que le premier player est le blanc
+        this.whitePlayer = firstPlayer;
+        this.blackPlayer = secondPlayer;
+
+        this.opponentPlayer = secondPlayer;
+    }
+
+    private static List<Character> arrayToListChar(char[] array) {
         List<Character> listOfChar = new ArrayList<>();
-        for(char i : array){
-            listOfChar.add((Character)i);
+        for (char i : array) {
+            listOfChar.add((Character) i);
         }
         return listOfChar;
     }
 
-    public static List <Piece> getActivePieces(Player player) {
+    public static List<Piece> getActivePieces(Player player) {
         List<Piece> activePieces = new ArrayList<>();
-        for (Square square : lesCase) {
+        for (Square square : player.getBoard().lesCase) {
             if (square.getPiece() != null && square.getPiece().getColor().equals(player.getColor())) {
                 activePieces.add(square.getPiece());
             }
@@ -46,45 +75,44 @@ public class Board {
 
     public void initPiece() {
         for (Square c : lesCase) {
-            if(c.getNumber()>4){
-                if(c.getNumber()==7){
+            if (c.getNumber() > 4) {
+                if (c.getNumber() == 7) {
                     c.setPiece(new Pawn(Piece.PieceType.PAWN, "Black", c, true));
                 }
-                if(c.getNumber()==8){
-                    if(c.getLetter()=='A' || c.getLetter()=='H'){
+                if (c.getNumber() == 8) {
+                    if (c.getLetter() == 'A' || c.getLetter() == 'H') {
                         c.setPiece(new Rook(Piece.PieceType.ROOK, "Black", c, true));
                     }
-                    if(c.getLetter()=='B' || c.getLetter()=='G'){
+                    if (c.getLetter() == 'B' || c.getLetter() == 'G') {
                         c.setPiece(new Knight(Piece.PieceType.KNIGHT, "Black", c, true));
                     }
-                    if(c.getLetter()=='C' || c.getLetter()=='F'){
-                        c.setPiece(new Bishop( "Black", c, true));
+                    if (c.getLetter() == 'C' || c.getLetter() == 'F') {
+                        c.setPiece(new Bishop("Black", c, true));
                     }
-                    if(c.getLetter()=='D'){
+                    if (c.getLetter() == 'D') {
                         c.setPiece(new Queen(Piece.PieceType.QUEEN, "Black", c, true));
                     }
-                    if(c.getLetter()=='E'){
+                    if (c.getLetter() == 'E') {
                         c.setPiece(new King(Piece.PieceType.KING, "Black", c, true));
                     }
                 }
-            }
-            else if (c.getNumber()==2){
+            } else if (c.getNumber() == 2) {
                 c.setPiece(new Pawn(Piece.PieceType.PAWN, "White", c, true));
             }
-            if(c.getNumber()==1){
-                if(c.getLetter()=='A' || c.getLetter()=='H'){
+            if (c.getNumber() == 1) {
+                if (c.getLetter() == 'A' || c.getLetter() == 'H') {
                     c.setPiece(new Rook(Piece.PieceType.ROOK, "White", c, true));
                 }
-                if(c.getLetter()=='B' || c.getLetter()=='G'){
+                if (c.getLetter() == 'B' || c.getLetter() == 'G') {
                     c.setPiece(new Knight(Piece.PieceType.KNIGHT, "White", c, true));
                 }
-                if(c.getLetter()=='C' || c.getLetter()=='F'){
-                    c.setPiece(new Bishop( "White", c, true));
+                if (c.getLetter() == 'C' || c.getLetter() == 'F') {
+                    c.setPiece(new Bishop("White", c, true));
                 }
-                if(c.getLetter()=='D'){
+                if (c.getLetter() == 'D') {
                     c.setPiece(new Queen(Piece.PieceType.QUEEN, "White", c, true));
                 }
-                if(c.getLetter()=='E'){
+                if (c.getLetter() == 'E') {
                     c.setPiece(new King(Piece.PieceType.KING, "White", c, true));
                 }
             }
@@ -92,24 +120,26 @@ public class Board {
 
 
     }
-
+    public void afficherPlateau(boolean affichagePlateau) {
+        if (affichagePlateau){
+            afficherPlateau();
+        }
+    }
     public void afficherPlateau() {
         int buff = 0;
         System.out.println("");
-        for(int i=0;i<lesCase.size();i++){
-            if(i%8==0){
+        for (int i = 0; i < lesCase.size(); i++) {
+            if (i % 8 == 0) {
                 System.out.print(lesCase.get(i).getNumber());
                 buff = i;
-                for(int y=0;y<=(lesCase.size()/8)*2;y++){
-                    if(y%2==0){
+                for (int y = 0; y <= (lesCase.size() / 8) * 2; y++) {
+                    if (y % 2 == 0) {
                         System.out.print(" |");
-                    }
-                    else{
-                        if(lesCase.get(buff).getPiece() != null){
+                    } else {
+                        if (lesCase.get(buff).getPiece() != null) {
                             System.out.print(lesCase.get(buff).getPiece().getSymbol());
-                        }
-                        else{
-                            System.out.print("_");
+                        } else {
+                            System.out.print('\u260F');
                         }
                         buff++;
                     }
@@ -119,33 +149,79 @@ public class Board {
         }
     }
 
-    public List <Player> getPlayers() {
+    public List<Player> getPlayers() {
         return null;
     }
 
     public Player getWhitePlayer() {
-        for (Player p : getPlayers()) {
-            if (p.getColor().equals("White")) {
-                return p;
-            }
+
+      return whitePlayer;
+
+    }
+
+    public void alterneJoueur() {
+        if (this.p==this.getBlackPlayer()){
+            this.p=this.getWhitePlayer();
+            this.opponentPlayer=this.getBlackPlayer();
+        } else {
+            this.p=this.getBlackPlayer();
+            this.opponentPlayer=this.getWhitePlayer();
         }
+    }
 
-        return null;
-    //todo should not be there
-         }
+    public void setJoueurEncoursIA() {
+            this.p=this.getWhitePlayer();
+            this.opponentPlayer=this.getBlackPlayer();
 
+    }
+    public void setJoueurEncoursHumain() {
+        this.p=this.getBlackPlayer();
+        this.opponentPlayer=this.getWhitePlayer();
 
+    }
     public Player getBlackPlayer() {
-        for (Player p : getPlayers()) {
-            if (p.getColor().equals("Black")) {
-                return p;
-            }
-        }
-        return null;
-        //todo should not be there
+    return blackPlayer;
     }
 
     public Player getPlayerToPlay() {
-        return null;
+        return this.p;
+    }
+
+    public void setPlayerToPlay(Player  player) {
+        this.p=player;
+    }
+
+    public List<Square> copyCase( List<Square> lesCase) {
+        List<Square> copyCase = new ArrayList<>();
+        for (Square c : lesCase) {
+            copyCase.add(new Square(c.getLetter(), c.getNumber()));
+            if (c.getPiece() != null) {
+
+
+                switch (c.getPiece().getType()) {
+                    case PAWN:
+                        copyCase.get(copyCase.size() - 1).setPiece(new Pawn(Piece.PieceType.PAWN, c.getPiece().getColor(), copyCase.get(copyCase.size() - 1), c.getPiece().isFirstMove()));
+                        break;
+                    case ROOK:
+                        copyCase.get(copyCase.size() - 1).setPiece(new Rook(Piece.PieceType.ROOK, c.getPiece().getColor(), copyCase.get(copyCase.size() - 1), c.getPiece().isFirstMove()));
+                        break;
+                    case KNIGHT:
+                        copyCase.get(copyCase.size() - 1).setPiece(new Knight(Piece.PieceType.KNIGHT, c.getPiece().getColor(), copyCase.get(copyCase.size() - 1), c.getPiece().isFirstMove()));
+                        break;
+                    case BISHOP:
+                        copyCase.get(copyCase.size() - 1).setPiece(new Bishop(c.getPiece().getColor(), copyCase.get(copyCase.size() - 1), c.getPiece().isFirstMove()));
+                        break;
+                    case QUEEN:
+                        copyCase.get(copyCase.size() - 1).setPiece(new Queen(Piece.PieceType.QUEEN, c.getPiece().getColor(), copyCase.get(copyCase.size() - 1), c.getPiece().isFirstMove()));
+                        break;
+                    case KING:
+                        copyCase.get(copyCase.size() - 1).setPiece(new King(Piece.PieceType.KING, c.getPiece().getColor(), copyCase.get(copyCase.size() - 1), c.getPiece().isFirstMove()));
+                        break;
+                    default:
+                        return null;
+                }
+            }
+        }
+        return copyCase;
     }
 }

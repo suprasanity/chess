@@ -3,14 +3,36 @@ package jeu;
 import java.util.ArrayList;
 import java.util.List;
 
-import Piece.Piece;
+import Piece.*;
+
+import org.apache.camel.main.Main;
 
 public class Player {
-    //class abstraite/static , settings
+
+
     private final String color;
+
+    public String getName() {
+        return name;
+    }
+
     private final String name;
 
-    public Player(String color, String name) {
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    private Board board;
+    public Boolean castled = false;
+    public static final int DIRECTION = 1;
+    public static final int OPPONENT_DIRECTION = -1;
+
+    public Player(Board board, String color, String name) {
+        this.board = board;
         this.color = (color.equals("Black") ? "Black" : "White");
         this.name = name;
     }
@@ -33,46 +55,122 @@ public class Player {
         return listOfPiece;
     }
 
-    public List<Square> getAttacksOnSquare(List<Square> Board) {
-        return null;
-    }
-
-    public List<Square> getOpponentAttacksOnSquare(List<Square> Board) {
-        return null;
-    }
-
-    public static int getDirection() {
-        return 1;
-    }
-
-    public static int getOpponentDirection() {
-        return -1;
-    }
-
     public List<Move> getLegalMoves() {
         List<Move> legalMoves = new ArrayList<>();
-        for (Piece piece : getAllPieces(Board.lesCase)) {
-            if (piece.getColor().equals(this.color) && piece.legalMovSquares(piece.getPiecePosition()).size() != 0) {
-                legalMoves.addAll(piece.legalMovSquares(piece.getPiecePosition()));
+        for (Piece piece : getAllPieces(board.lesCase)) {
+            if (piece.getColor().equals(this.color)){
+                 if (piece.legalMovSquares(piece.getPiecePosition(board), board).size() != 0){
+                    legalMoves.addAll(piece.legalMovSquares(piece.getPiecePosition(board), board));
+                }
             }
 
         }
         return legalMoves;
     }
 
-    public MoveTransition makeMove(Move move) {
-     return null;
-    }
 
     public boolean isInCheckMate() {
         return false;
     }
 
-    public boolean isCastled() {
+    public boolean isInCheck() {
         return false;
     }
 
-    public boolean isInCheck() {
+    public MoveTransition makeMove(Move move, Board board) {
+        final Board transitionedBoard = move.execute(board);
+        return new MoveTransition(board, transitionedBoard, move);
+    }
+
+    public boolean isCastled() {
+        return this.castled;
+    }
+
+    public void setCastled(boolean set) {
+        this.castled = set;
+    }
+
+
+    public boolean inCheckMate() {
         return false;
+    }
+
+    public Piece getQueen() {
+        return null;
+    }
+
+    public boolean inStaleMate() {
+        return false;
+    }
+
+    public List<Piece> getPieceOnBoard() {
+        List<Piece> pieces = new ArrayList<>();
+        for (Square square : board.lesCase) {
+            if (square.getPiece() != null && square.getPiece().getColor().equals(this.color)) {
+                pieces.add(square.getPiece());
+            }
+        }
+        return pieces;
+    }
+
+    public Piece getKing() {
+        for (Square square : board.lesCase) {
+            if (square.getPiece() != null && square.getPiece().getColor().equals(this.color) && square.getPiece().getType().equals(Piece.PieceType.KING)) {
+                return square.getPiece();
+            }
+        }
+        return null;
+    }
+
+
+    public List<Move> getAttacksOnSquare(Board b){ // le cas du pat 
+        List<Move> allOpponentMove = new ArrayList<>();
+        for(Square square : b.lesCase){
+            if(square.getPiece() instanceof Pawn){
+                Pawn pawn = (Pawn)square.getPiece();
+                if(square.getPiece().getColor().equals(b.p.getColor())){
+                    for(Move move : pawn.attackMove(square,b)){//need check
+                        allOpponentMove.add(move);
+                    }
+                }
+            }
+            else{
+                if(square.getPiece() instanceof Piece){
+                    if(square.getPiece().getColor().equals(b.p.getColor())){
+                        for(Move move : square.getPiece().legalMovSquares(square,b)){//need check
+                            allOpponentMove.add(move);
+                        }
+                    }
+                }
+
+            }
+        }
+        return allOpponentMove;
+    }
+
+    public List<Move> getOpponentAttacksOnSquare(Board b){ // board
+        List<Move> allOpponentMove = new ArrayList<>();
+        for(Square square : b.lesCase){
+            if(square.getPiece() instanceof Pawn){
+                Pawn pawn = (Pawn)square.getPiece();
+                if(square.getPiece().getColor().equals(getOpponnentColor())){
+                    for(Move move : pawn.attackMove(square,b)){//need check
+                        allOpponentMove.add(move);
+                    }
+                }
+            }
+            else{
+
+                if(square.getPiece() instanceof Piece){
+                    if(square.getPiece().getColor().equals(getOpponnentColor())){
+                        for(Move move : square.getPiece().legalMovSquares(square,b)){//need check
+                            allOpponentMove.add(move);
+                        }
+                    }
+                }
+
+            }
+        }
+        return allOpponentMove;
     }
 }

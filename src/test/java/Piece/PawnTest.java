@@ -36,23 +36,26 @@ class PawnTest {
 
     @Test
     void testLegalMovSquaresWhite() {
-        Board p = new Board(new Player(MesConstantes.WHITE,"Yann"));
+        Board p = new Board();
+        p.initPlayeur(new Player(p,MesConstantes.WHITE,"Yann"),new Player(p,MesConstantes.BLACK,"test"));
 
         Pawn pawn = new Pawn(Piece.PieceType.PAWN, MesConstantes.WHITE, new Square('A', 2), true);
         Square maCaseATester=new Square('A', 2);
         maCaseATester.setPiece(pawn);
-        assertTrue(pawn.legalMovSquares(maCaseATester).contains(new Square('A', 3)));
+        assertTrue(pawn.legalMovSquares(maCaseATester,p).contains(new Square('A', 3)));
 
     }
 
     @Test
     void testLegalMovSquaresJoueurBlack() {
-        Board p = new Board(new Player(MesConstantes.BLACK,"Yann"));
+        Board p = new Board();
+        p.initPlayeur(new Player(p,MesConstantes.WHITE,"Yann"),new Player(p,MesConstantes.BLACK,"test"));
+
 
         Pawn pawn = new Pawn(Piece.PieceType.PAWN, MesConstantes.BLACK, new Square('A', 7), true);
         Square maCaseATester=new Square('A', 7);
         maCaseATester.setPiece(pawn);
-        assertTrue(pawn.legalMovSquares(maCaseATester).contains(new Square('A', 3)));
+        assertTrue(pawn.legalMovSquares(maCaseATester,p).contains(new Square('A', 3)));
 
     }
 

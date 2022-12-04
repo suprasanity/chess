@@ -15,8 +15,7 @@ public final class SimpleCalculator implements Calculator {
     @Override
     public int evaluate(Board board, int depth) {
 
-        return scorePlayer(board, board.getWhitePlayer(), depth) -
-               scorePlayer(board, board.getBlackPlayer(), depth);
+        return scorePlayer(board, board.getWhitePlayer(), depth) - scorePlayer(board, board.getBlackPlayer(), depth);
     }
 
     private int scorePlayer(Board board, Player player, int depth) {

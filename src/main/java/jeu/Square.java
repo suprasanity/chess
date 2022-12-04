@@ -2,12 +2,14 @@ package jeu;
 
 import Piece.Piece;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Square {
     private char letter;
     private int number;
     private Piece piece;
+
 
     @Override
     public boolean equals(Object o) {
@@ -36,14 +38,34 @@ public class Square {
         return this.piece;
     }
 
-    //override not on parameters, function below delete 
-    public boolean equalSquare(Square other){
-        return (other.letter==this.letter && other.number==this.number);
-    }
-    public static boolean isValidSquare(Square other){
+
+
+
+    public static boolean isOccupiedSquare(Move mv, Board b){
+        List<Move> qsd;
+
+        if(mv.getPiece().getColor().equals("Black")){
+            if(b.p.getColor().equals("Black")){
+                qsd = b.p.getOpponentAttacksOnSquare(b);
+            }
+            else{
+                qsd = b.p.getAttacksOnSquare(b);
+            }
+        }else{
+            if(b.p.getColor().equals("White")){
+                qsd = b.p.getOpponentAttacksOnSquare(b);
+            }
+            else{
+                qsd = b.p.getAttacksOnSquare(b);
+            }
+        }
+        for(Move move : qsd){
+            if(move.getDestCoord() == mv.getDestCoord()){
+                return true;
+            }
+        }
         return false;
     }
-    public static boolean isOccupied(Square other){return false;}
 
     @Override
     public String toString() {

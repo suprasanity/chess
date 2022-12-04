@@ -42,16 +42,37 @@ public abstract class Piece {
   return this.color;
  }
 
-public abstract List<Move> legalMovSquares(Square piecePosition) ;
+public abstract List<Move> legalMovSquares(Square piecePosition,Board board);
 
- public Square getPiecePosition() {
-  for (Square square : Board.lesCase) {
+ public Square getPiecePosition(Board board) {
+  for (Square square : board.lesCase) {
    if (square.getPiece() == this) {
     return square;
    }
   }
     return null;
  }
+
+    public PieceType getType() {
+          return this.pieceType;
+    }
+
+ public Square getSquare() {
+    return this.piecePosition;
+ }
+
+ public boolean isFirstMove() {
+  return this.isFirstMove;
+ }
+
+ public boolean firstMove() {
+  return false;
+ }
+
+ public String getPieceName() {
+  return this.pieceType.pieceName;
+ }
+
 
  public enum PieceType {
 

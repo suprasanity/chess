@@ -114,10 +114,10 @@ class KingTest {
     /**
      * Method under test: {@link King#legalMovSquares(Square)}
      */
-    @Test
+   /* @Test
     void testLegalMovSquares() {
         King king = new King(Piece.PieceType.PAWN, "Color", new Square('A', 10), true);
         assertTrue(king.legalMovSquares(new Square('A', 10)).isEmpty());
-    }
+    }*/
 }
 

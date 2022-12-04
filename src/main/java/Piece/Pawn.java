@@ -1,10 +1,7 @@
 package Piece;
 
 
-import jeu.Board;
-import jeu.MesConstantes;
-import jeu.Move;
-import jeu.Square;
+import jeu.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,99 +20,207 @@ public class Pawn extends Piece {
         return "pion " + this.color;
     }
 
-    public List<Move> legalMovSquares(Square square) {
+    public List<Move> attackMove(Square square, Board board) {
         List<Move> legalMove = new ArrayList<>();
         int index = 0;
+        int directionSide = (MesConstantes.WHITE.equals(board.p.getColor()))
+                ? Player.DIRECTION : Player.OPPONENT_DIRECTION;
         int[] listDirection;
         if (square.getPiece() instanceof Pawn) {
             //case if row 7 or row 2
-//            for(Square carre : Board.lesCase){// en trop ? mettre getid pour chaque case ?
-//                if(square.equals(carre)){
-//                    index = Board.lesCase.indexOf(carre);
-//                }
-//            }
-            // La méthode equals de la classe Square a été redéfini pour comparer les coordonnées des cases
-            // on peut donc utiliser la méthode indexOf de la classe ArrayList
-            index = Board.lesCase.indexOf(square);
+            for (Square findSquare : board.lesCase) {// en trop ? mettre getid pour chaque case ?
+                if (square.equals(findSquare)) {
+                    index = board.lesCase.indexOf(findSquare);
+                }
+            }
+            // pawn attack piece each side if exist
+            // if color of the piece equal to the color assigned for the player then we change the direction
+            listDirection = new int[]{7, 9};
+            for (int direction : listDirection) {
+                int nextPossibleMove = direction * directionSide + index;
+                    if (isColumnAcceptableRight(1, square, nextPossibleMove, board) && isColumnAcceptableLeft(1, square, nextPossibleMove, board)&&board.lesCase.get(nextPossibleMove).getPiece() == null) {
+                    legalMove.add(new Move(nextPossibleMove, index,square.getPiece()));
+                }
 
-            //pawn attack
-            //TODO faire le test pour savoir si on est blanc ou noir
-            //legalMoveSquareForAttack(legalMove, index);
-            // pawn just move
-            legalMoveStandard(square, legalMove, index);
+            }
         }
         return legalMove;
     }
 
-    private static void legalMoveStandard(Square square, List<Move> legalMove, int index) {
+    public boolean isColumnAcceptableLeft(int step, Square currSquare, int indexNextSquare, Board board) {
+        char currLetter = currSquare.getLetter();
+        int indexCurrLetter = Board.LETTER.indexOf(currLetter);
+        int indexNextLetter;
+        try {
+            indexNextLetter = indexCurrLetter - step;
+            Board.LETTER.get(indexNextLetter);
+            return (board.lesCase.get(indexNextSquare).getLetter()
+                    == (Board.LETTER.get(indexNextLetter))) ? true : false;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isColumnAcceptableRight(int step, Square currSquare, int indexNextSquare, Board board) {
+        char currLetter = currSquare.getLetter();
+        int indexCurrLetter = Board.LETTER.indexOf(currLetter);//need modify
+        int indexNextLetter;
+        try {
+            indexNextLetter = indexCurrLetter + step;
+            Board.LETTER.get(indexNextLetter);
+            return (board.lesCase.get(indexNextSquare).getLetter()
+                    == (Board.LETTER.get(indexNextLetter))) ? true : false;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public List<Move> legalMovSquares(Square square, Board board) {
+        List<Move> legalMove = new ArrayList<>();
+        int index = 0;
+
+        int directionSide = (MesConstantes.WHITE.equals(board.p.getColor()))
+                ? Player.DIRECTION : Player.OPPONENT_DIRECTION;
+        if (square.getPiece() instanceof Pawn) {
+            //case if row 7 or row 2
+            index = board.lesCase.indexOf(square);
+            detectionMangeagePion(square, board, legalMove, index, directionSide);
+            // pawn move 2 squares forward
+            if (square.getNumber() == 2 && square.getPiece().getColor().equals("White") ||
+                    square.getNumber() == 7 && square.getPiece().getColor().equals("Black")) { // isfirst better
+                pawnTwoSquare(square,board, legalMove, index, directionSide);
+            } else { // move 1 square
+                detectionDeplacementStandardPawn(square,board, legalMove, index, directionSide);
+            }
+        }
+        return legalMove;
+    }
+
+    private static void detectionDeplacementStandardPawn(Square square,Board board, List<Move> legalMove, int index, int directionSide) {
+        int direction = 8;
+        int nextPossibleSquare = direction * directionSide + index;
+                /*if(nextPossibleSquare + direction<Board.START_INDEX_BOARD){
+                    Queen pieceQueen = new Queen(square.getPiece().getColor(),nextPossibleSquare);
+                    Pawn currPawn = (Pawn)square.getPiece();
+                    legalMove.add(new PawnPromotion(currPawn,
+                    pieceQueen,
+                    new Move(nextPossibleSquare,index,square.getPiece())));
+                    Knight pieceKnight = new Knight(square.getPiece().getColor(),nextPossibleSquare);
+                    legalMove.add(new PawnPromotion(currPawn,
+                    pieceKnight,
+                    new Move(nextPossibleSquare,index,square.getPiece())));
+                    Rook pieceRook = new Rook(square.getPiece().getColor(),nextPossibleSquare);
+                    legalMove.add(new PawnPromotion(currPawn,
+                    pieceRook,
+                    new Move(nextPossibleSquare,index,square.getPiece())));
+                }*/
+        if (board.p.getColor().equals(square.getPiece().getColor())) {
+            if (nextPossibleSquare >= Board.START_INDEX_BOARD) {
+                if (board.lesCase.get(nextPossibleSquare).getPiece() == null) {
+                    legalMove.add(new Move(nextPossibleSquare, index, square.getPiece()));
+                }
+            }
+        }
+    }
+
+    private void detectionMangeagePion(Square square, Board board, List<Move> legalMove, int index, int directionSide) {
+        int[] listDirection;
+        listDirection = new int[]{7, 9};
+        for (int direction : listDirection) {
+            int nextPossibleMove = direction * directionSide + index;
+            if (board.p.getColor().equals(square.getPiece().getColor())) {
+
+                if (isColumnAcceptableRight(1, square, nextPossibleMove, board) && isColumnAcceptableLeft(1, square, nextPossibleMove, board)&&board.lesCase.get(nextPossibleMove).getPiece() != null) {
+
+                    if (!(Objects.equals(board.lesCase.get(nextPossibleMove).getPiece().getColor(),
+                            square.getPiece().getColor()))) {
+                        legalMove.add(new Move(nextPossibleMove, index,square.getPiece()));
+                    }
+                }
+            }
+        }
+    }
+
+    private static void pawnTwoSquare(Square square,Board board, List<Move> legalMove, int index, int directionSide) {
+        int[] listDirection;
+        listDirection = new int[]{8, 16};
+        for (int direction : listDirection) {
+            int nextPossibleSquare = direction * directionSide + index;
+            if (board.p.getColor().equals(square.getPiece().getColor())) {
+                if (board.lesCase.get(nextPossibleSquare).getPiece() == null) {
+                    legalMove.add(new Move(nextPossibleSquare, index, square.getPiece()));
+                } else {
+                    break;
+                }
+            }
+
+        }
+    }
+
+    private static void legalMoveStandard(Square square, List<Move> legalMove, int index, Board board) {
         int[] listDirection;
 
         int facteur = -1;
 
-        if (Board.p.getColor().equals(MesConstantes.WHITE)){
+        if (board.p.getColor().equals(MesConstantes.WHITE)) {
             if (square.getPiece().getColor().equals(MesConstantes.WHITE)) {
-                if (square.getNumber() == 2){
+                if (square.getNumber() == 2) {
                     listDirection = new int[]{8, 16};
-                    detectMovePossible(legalMove, index, listDirection);
-                }else {
+                    detectMovePossible(square,legalMove, index, listDirection, board);
+                } else {
                     int direction = 8;
                     int nextPossibleSquare = direction + index;
-                    if (nextPossibleSquare >= Board.START_INDEX_BOARD) {
-                        if (Board.lesCase.get(nextPossibleSquare).getPiece() == null) {
-                            legalMove.add(new Move(nextPossibleSquare, index));
+                    if (nextPossibleSquare >= Board.START_INDEX_BOARD && nextPossibleSquare <= Board.END_INDEX_BOARD) {
+                        if (board.lesCase.get(nextPossibleSquare).getPiece() == null) {
+                            legalMove.add(new Move(nextPossibleSquare, index, square.getPiece()));
                         }
                     }
                 }
-            }else{
-                System.out.println("Ba mon pote t'esaie de bouger un pion" + Board.p.getOpponnentColor()+ "alors que t'es le joueur " +Board.p.getColor());
-
             }
-        }else{
+        } else {
             // je suis le joueur noir
             if (square.getPiece().getColor().equals(MesConstantes.BLACK)) {
-                if (square.getNumber() == 7){
+                if (square.getNumber() == 7) {
                     listDirection = new int[]{-8, -16};
-                    detectMovePossible(legalMove, index, listDirection);
-                }else {
+                    detectMovePossible(square,legalMove, index, listDirection, board);
+                } else {
                     int direction = -8;
                     int nextPossibleSquare = direction + index;
                     if (nextPossibleSquare >= Board.START_INDEX_BOARD) {
-                        if (Board.lesCase.get(nextPossibleSquare).getPiece() == null) {
-                            legalMove.add(new Move(nextPossibleSquare, index));
+                        if (board.lesCase.get(nextPossibleSquare).getPiece() == null) {
+                            legalMove.add(new Move(nextPossibleSquare, index, square.getPiece()));
                         }
                     }
                 }
-            }else{
-                //Ba mon pote t'esaie de bouger un pion noir alors que t'es le joueur noir
             }
 
         }
 
 
-
-
     }
 
-    private static void detectMovePossible(List<Move> legalMove, int index, int[] listDirection) {
+    private static void detectMovePossible(Square square,List<Move> legalMove, int index, int[] listDirection, Board board) {
         for (int direction : listDirection) {
             int nextPossibleSquare = direction + index;
-            if (Board.lesCase.get(nextPossibleSquare).getPiece() == null) {
-                legalMove.add(new Move(nextPossibleSquare, index));
+            if (board.lesCase.get(nextPossibleSquare).getPiece() == null) {
+                legalMove.add(new Move(nextPossibleSquare, index, square.getPiece()));
             }
         }
     }
 
-    private  void legalMoveSquareForAttack
-            (List<Move> legalMove, int index) {
+    private void legalMoveSquareForAttack
+            (List<Move> legalMove, int index, Board board) {
         int[] listDirection;
         // pawn attack piece each side if exist
 
         listDirection = new int[]{-7, -9};
         for (int direction : listDirection) {
             int nextPossibleMove = direction + index;
-            if (Board.lesCase.get(nextPossibleMove).getPiece() != null
-                    && Objects.equals(Board.lesCase.get(nextPossibleMove).getPiece().getColor(),
-                    Board.p.getOpponnentColor())) {
+            if (board.lesCase.get(nextPossibleMove).getPiece() != null
+                    && Objects.equals(board.lesCase.get(nextPossibleMove).getPiece().getColor(),
+                    board.p.getOpponnentColor())) {
                 legalMove.add(new Move(nextPossibleMove, index));
             }
         }
