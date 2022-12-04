@@ -2,7 +2,7 @@ package Piece;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import jeu.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -33,12 +33,9 @@ class PawnTest {
         assertEquals('♙', actualPawn.getSymbol());
     }
 
-
-    @Test
-    void testLegalMovSquaresWhite() {
-
-    }
-
+    /**
+     * Method under test: {@link Pawn#legalMovSquares(Square)}
+     */
     @Test
     void testLegalMovSquaresWhiteWithAttaque(){
         Board p = new Board(new Player(MesConstantes.WHITE,"Yann"));
@@ -50,10 +47,8 @@ class PawnTest {
         }
         assertEquals(1, legalMove.size());
     }
-
-
     @Test
-    void testLegalMovSquaresJoueurBlack() {
+    void testLegalMovSquaresBlack() {
         Board p = new Board(new Player(MesConstantes.BLACK,"Yann"));
 
     }
