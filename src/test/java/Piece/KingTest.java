@@ -1,10 +1,18 @@
 package Piece;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jeu.Square;
+import jeu.*;
 import org.junit.jupiter.api.Test;
+
+import Piece.King;
+import Piece.Pawn;
+import Piece.Piece;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class KingTest {
     /**
@@ -17,107 +25,158 @@ class KingTest {
      */
     @Test
     void testConstructor() {
-        assertEquals("Roi Color", (new King(Piece.PieceType.PAWN, "Color", new Square('A', 10), true)).toString());
+        King k = new King(Piece.PieceType.KING, "Color", new Square('A', 10), true);
+        assertEquals("Color",k.getColor());
+        assertEquals(Piece.PieceType.KING, k.pieceType);
+        assertTrue(k.isFirstMove);
+        assertEquals('♔', k.getSymbol());
+        assertEquals("Roi Color", k.toString());
     }
 
     /**
-     * Method under test: {@link King#King(Piece.PieceType, String, Square, boolean)}
+     * Method under test: {@link King#legalMovSquares(Square square,Board b)}
      */
     @Test
-    void testConstructor2() {
-        King actualKing = new King(Piece.PieceType.PAWN, "Color", new Square('A', 10), true);
+    void testLegalMovSquaresWhite() {
+        Board board = new Board();
+        Player firstPlayer = new Player(new Board(), "White", "Name");
+        Player player = new Player(new Board(), "Black", "Name");
+        board.initPlayeur(firstPlayer, player);
+        
+        List <Move> legalMove = new ArrayList<>();
+        legalMove.addAll(board.lesCase.get(4).getPiece().legalMovSquares(board.lesCase.get(4),board));
+        assertEquals(0, legalMove.size());
 
-        assertEquals("Color", actualKing.getColor());
-        assertEquals(Piece.PieceType.PAWN, actualKing.pieceType);
-        assertTrue(actualKing.isFirstMove);
-        assertEquals('♔', actualKing.getSymbol());
+        board.lesCase.get(27).setPiece(new King(Piece.PieceType.KING,board.p.getColor()
+        ,board.lesCase.get(27),true));
+        legalMove.clear();
+        legalMove.addAll(board.lesCase.get(27).getPiece().legalMovSquares(board.lesCase.get(27),board));
+        assertEquals(8, legalMove.size());
+
+        // test si le roi n'attaque pas le pion
+        board.lesCase.get(38).setPiece(new Pawn(Piece.PieceType.PAWN,board.p.getColor()
+        ,board.lesCase.get(38),true));
+        board.lesCase.get(39).setPiece(new King(Piece.PieceType.KING,board.p.getColor()
+        ,board.lesCase.get(39),true));
+        legalMove.clear();
+        legalMove.addAll(board.lesCase.get(39).getPiece().legalMovSquares(board.lesCase.get(39),board));
+        assertEquals(4, legalMove.size());
+
+        // test si le roi peut attaque le pion
+        board.lesCase.get(38).setPiece(new Pawn(Piece.PieceType.PAWN,board.p.getOpponnentColor()
+        ,board.lesCase.get(38),true));
+        legalMove.clear();
+        legalMove.addAll(board.lesCase.get(39).getPiece().legalMovSquares(board.lesCase.get(39),board));
+        assertEquals(4, legalMove.size());
+
+        // test si n'est pas en dehors du tableau de la gauche
+
+        board.lesCase.get(32).setPiece(new King(Piece.PieceType.KING,board.p.getColor()
+        ,board.lesCase.get(32),true));
+
+        legalMove.clear();
+        legalMove.addAll(board.lesCase.get(32).getPiece().legalMovSquares(board.lesCase.get(32),board));
+        assertEquals(5, legalMove.size());
     }
 
     /**
-     * Method under test: {@link King#King(Piece.PieceType, String, Square, boolean)}
+     * Method under test: {@link King#legalMovSquares(Square square,Board b)}
      */
     @Test
-    void testConstructor3() {
-        King actualKing = new King(Piece.PieceType.PAWN, (String) "Black", new Square('A', 10), true);
+    void testLegalMovSquaresBlack() {
+        Board board = new Board();
+        Player firstPlayer = new Player(new Board(), "Black", "Name");
+        Player player = new Player(new Board(), "White", "Name");
+        board.initPlayeur(firstPlayer, player);
 
-        assertEquals("Black", actualKing.getColor());
-        assertEquals(Piece.PieceType.PAWN, actualKing.pieceType);
-        assertTrue(actualKing.isFirstMove);
-        assertEquals('♚', actualKing.getSymbol());
+        List <Move> legalMove = new ArrayList<>();
+        legalMove.addAll(board.lesCase.get(60).getPiece().legalMovSquares(board.lesCase.get(60),board));
+        assertEquals(0, legalMove.size());
+        // test toutes les positions possible
+        board.lesCase.get(27).setPiece(new King(Piece.PieceType.KING,board.p.getColor()
+        ,board.lesCase.get(27),true));
+        legalMove.clear();
+        legalMove.addAll(board.lesCase.get(27).getPiece().legalMovSquares(board.lesCase.get(27),board));
+        assertEquals(8, legalMove.size());
+        // test si le roi n'attaque pas le pion
+        board.lesCase.get(38).setPiece(new Pawn(Piece.PieceType.PAWN,board.p.getColor()
+        ,board.lesCase.get(38),true));
+        board.lesCase.get(39).setPiece(new King(Piece.PieceType.KING,board.p.getColor()
+        ,board.lesCase.get(39),true));
+
+        legalMove.clear();
+
+        legalMove.addAll(board.lesCase.get(39).getPiece().legalMovSquares(board.lesCase.get(39),board));
+        assertEquals(4, legalMove.size());
+        // test si le roi peut attaque le pion
+        board.lesCase.get(38).setPiece(new Pawn(Piece.PieceType.PAWN,board.p.getOpponnentColor()
+        ,board.lesCase.get(38),true));
+        legalMove.clear();
+        legalMove.addAll(board.lesCase.get(39).getPiece().legalMovSquares(board.lesCase.get(39),board));
+        assertEquals(4, legalMove.size());
+        // test si n'est pas en dehors du tableau de la gauche
+
+        board.lesCase.get(32).setPiece(new King(Piece.PieceType.KING,board.p.getColor()
+        ,board.lesCase.get(32),true));
+        legalMove.clear();
+        legalMove.addAll(board.lesCase.get(32).getPiece().legalMovSquares(board.lesCase.get(32),board));
+        assertEquals(5, legalMove.size());
     }
 
     /**
-     * Method under test: {@link King#King(Piece.PieceType, String, Square, boolean)}
+     * Method under test: {@link King#isColumnExclusionLeft(int,Square,int,Board)}
      */
     @Test
-    void testConstructor4() {
-        King actualKing = new King(Piece.PieceType.KNIGHT, "Color", new Square('A', 10), true);
+    void testIsColumnExclusionLeft() {
+        Board board = new Board();
+        Player firstPlayer = new Player(new Board(), "Black", "Name");
+        Player player = new Player(new Board(), "White", "Name");
+        board.initPlayeur(firstPlayer, player);
 
-        assertEquals("Color", actualKing.getColor());
-        assertEquals(Piece.PieceType.KNIGHT, actualKing.pieceType);
-        assertTrue(actualKing.isFirstMove);
-        assertEquals('♔', actualKing.getSymbol());
+
+        board.lesCase.get(16).setPiece(new King( Piece.PieceType.KING,"White", board.lesCase.get(16), true));
+        Square s = board.lesCase.get(16);
+        King k = (King)board.lesCase.get(16).getPiece();
+        int[] nextMove = new int[]{-9,-1,7};
+        for(int i : nextMove){
+            int nextMv = 16 + i;
+            assertFalse(k.isColumnExclusionLeft(1,s,nextMv,board));
+        }
+        board.lesCase.get(31).setPiece(new King(Piece.PieceType.KING, "White", board.lesCase.get(31), true));
+        s = board.lesCase.get(31);
+        k = (King)board.lesCase.get(31).getPiece();
+        for(int i : nextMove){
+            int nextMv = 31 + i;
+            assertTrue(k.isColumnExclusionLeft(1,s,nextMv,board));
+        }
     }
 
     /**
-     * Method under test: {@link King#King(Piece.PieceType, String, Square, boolean)}
+     * Method under test: {@link King#isColumnExclusionRight(int, Square,int,Board)}
      */
     @Test
-    void testConstructor5() {
-        King actualKing = new King(Piece.PieceType.BISHOP, "Color", new Square('A', 10), true);
+    void testIsColumnExclusionRight() {
+        Board board = new Board();
+        Player firstPlayer = new Player(new Board(), "Black", "Name");
+        Player player = new Player(new Board(), "White", "Name");
+        board.initPlayeur(firstPlayer, player);
 
-        assertEquals("Color", actualKing.getColor());
-        assertEquals(Piece.PieceType.BISHOP, actualKing.pieceType);
-        assertTrue(actualKing.isFirstMove);
-        assertEquals('♔', actualKing.getSymbol());
+        int[] nextMove = new int[]{-7,1,9};
+        board.lesCase.get(16).setPiece(new King( Piece.PieceType.KING,"White", board.lesCase.get(16), true));
+        Square s = board.lesCase.get(16);
+        King k = (King)board.lesCase.get(16).getPiece();
+        for(int i : nextMove){
+            int nextMv = 16 + i;
+            assertTrue(k.isColumnExclusionRight(1,s,nextMv,board));
+        }
+        board.lesCase.get(31).setPiece(new King( Piece.PieceType.KING,"White", board.lesCase.get(31), true));
+        s = board.lesCase.get(31);
+        k = (King)board.lesCase.get(31).getPiece();
+        for(int i : nextMove){
+            int nextMv = 31 + i;
+            assertFalse(k.isColumnExclusionRight(1,s,nextMv,board));
+        }
     }
-
-    /**
-     * Method under test: {@link King#King(Piece.PieceType, String, Square, boolean)}
-     */
-    @Test
-    void testConstructor6() {
-        King actualKing = new King(Piece.PieceType.ROOK, "Color", new Square('A', 10), true);
-
-        assertEquals("Color", actualKing.getColor());
-        assertEquals(Piece.PieceType.ROOK, actualKing.pieceType);
-        assertTrue(actualKing.isFirstMove);
-        assertEquals('♔', actualKing.getSymbol());
-    }
-
-    /**
-     * Method under test: {@link King#King(Piece.PieceType, String, Square, boolean)}
-     */
-    @Test
-    void testConstructor7() {
-        King actualKing = new King(Piece.PieceType.QUEEN, "Color", new Square('A', 10), true);
-
-        assertEquals("Color", actualKing.getColor());
-        assertEquals(Piece.PieceType.QUEEN, actualKing.pieceType);
-        assertTrue(actualKing.isFirstMove);
-        assertEquals('♔', actualKing.getSymbol());
-    }
-
-    /**
-     * Method under test: {@link King#King(Piece.PieceType, String, Square, boolean)}
-     */
-    @Test
-    void testConstructor8() {
-        King actualKing = new King(Piece.PieceType.KING, "Color", new Square('A', 10), true);
-
-        assertEquals("Color", actualKing.getColor());
-        assertEquals(Piece.PieceType.KING, actualKing.pieceType);
-        assertTrue(actualKing.isFirstMove);
-        assertEquals('♔', actualKing.getSymbol());
-    }
-
-    /**
-     * Method under test: {@link King#legalMovSquares(Square)}
-     */
-   /* @Test
-    void testLegalMovSquares() {
-        King king = new King(Piece.PieceType.PAWN, "Color", new Square('A', 10), true);
-        assertTrue(king.legalMovSquares(new Square('A', 10)).isEmpty());
-    }*/
 }
+
 

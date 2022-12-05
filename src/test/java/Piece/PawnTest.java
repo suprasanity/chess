@@ -10,6 +10,9 @@ import jeu.Square;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import Piece.Pawn;
+import Piece.Piece;
+
 class PawnTest {
     /**
      * Methods under test:
