@@ -77,6 +77,7 @@ public class Move {
     }
 
     public Piece getPieceAt(int destCoord,Board board) {
+        //
         return board.lesCase.get(destCoord).getPiece();
     }
 

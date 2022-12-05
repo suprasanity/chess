@@ -79,7 +79,7 @@ public class Player {
         return legalMoves;
     }
 
-
+//     public List<Move> getLegalMoves() {
     public boolean isInCheckMate() {
         return false;
     }

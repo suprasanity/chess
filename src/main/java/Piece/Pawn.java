@@ -97,6 +97,7 @@ public class Pawn extends Piece {
         }
         return legalMove;
     }
+    // pawn move 2 squares forward
 
     private static void detectionDeplacementStandardPawn(Square square,Board board, List<Move> legalMove, int index, int directionSide) {
         int direction = 8;
