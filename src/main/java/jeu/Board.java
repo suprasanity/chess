@@ -238,11 +238,13 @@ public class Board {
     }
 
     public void incrementeFrequence(Move move) {
-        String moveString = move.getPiece().getColor() + move.getPiece().toString() + move.getCurrCoord() + move.getDestCoord();
-        if (this.mapsFrequence.containsKey(moveString)) {
-            this.mapsFrequence.put(moveString, this.mapsFrequence.get(moveString).intValue() + 1);
-        } else {
-            this.mapsFrequence.put(moveString, 1);
+        if (move!=null) {
+            String moveString = move.getPiece().getColor() + move.getPiece().toString() + move.getCurrCoord() + move.getDestCoord();
+            if (this.mapsFrequence.containsKey(moveString)) {
+                this.mapsFrequence.put(moveString, this.mapsFrequence.get(moveString).intValue() + 1);
+            } else {
+                this.mapsFrequence.put(moveString, 1);
+            }
         }
     }
     public HashMap<String, Integer> getMapsFrequence() {

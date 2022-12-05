@@ -95,18 +95,10 @@ public class GuestChess {
         board.afficherPlateau();
 
         moveReceive = command.body();
-        startMoveOpponent = moveReceive.substring(0, 2);
-        endMoveOpponent = moveReceive.substring(3, 2);
-
-
-        board = board.p
-                .makeMove(new Move(Integer.parseInt(startMoveOpponent), Integer.parseInt(endMoveOpponent)), board).getToBoard();
-
-        //board = moveOpp0onent.getToBoard();
         board.afficherPlateau();
 
 
-        System.out.println("final board: \n " + board);
+
     }
 
     private static void handleNewBoard(PlayerFacade facade, Game currentGame, GameCommand commandLoop, Board board) {

@@ -68,7 +68,8 @@ public class ChessHost {
                 break;
 
             System.out.println("+++++++++++ Début Chess: +++++++++++++++++" );
-            System.out.println("Tour: " + tour++);
+            board.incrementTour();
+            System.out.println(board.getTour());
 
             Move calculatedMove = strategy.execute(board,2,false);
             startMove = intToCase(board,calculatedMove.getCurrCoord());
@@ -145,7 +146,7 @@ public class ChessHost {
             endofgame = whoWin(playerFacade, game, board);
         }
         // the game is not over
-        return false;
+        return endofgame;
 
     }
 
