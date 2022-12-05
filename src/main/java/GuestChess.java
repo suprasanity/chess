@@ -17,7 +17,7 @@ import java.util.Random;
 
 
 public class GuestChess {
-
+    static int tour = 0;
     static Strategie strategy = new Minimax();
     static Move move;
     static Move moveOpponent;
@@ -99,10 +99,8 @@ public class GuestChess {
         endMoveOpponent = moveReceive.substring(3, 2);
 
 
-
-
         board = board.p
-                .makeMove(new Move(Integer.parseInt(startMoveOpponent), Integer.parseInt(endMoveOpponent)),board).getToBoard();
+                .makeMove(new Move(Integer.parseInt(startMoveOpponent), Integer.parseInt(endMoveOpponent)), board).getToBoard();
 
         //board = moveOpp0onent.getToBoard();
         board.afficherPlateau();
@@ -117,63 +115,64 @@ public class GuestChess {
         System.out.println(" ");
 
 
-
-
         moveReceive = commandLoop.body();
-        System.out.println("+++++++++++ Début Guess: +++++++++++++++++" );
+        System.out.println("+++++++++++ Début Guess: +++++++++++++++++");
+        System.out.println("Tour " + tour++);
         startMoveOpponent = moveReceive.substring(0, 2);
         endMoveOpponent = moveReceive.substring(3, 5);
         //System.out.println("Réception Commande Joueur: " + board.p.getColor().toString() + " " + "Move: " + startMove + " " + endMove );
         //réception des move du blanc
-       int startMoveIndice = transformeToInt( board,startMoveOpponent);
-       int endMoveIndice = transformeToInt( board,endMoveOpponent);
-        Piece p=board.p.getBoard().lesCase.get(startMoveIndice).getPiece();
-       List <Square> listeReception=board.p.makeMove(new Move(endMoveIndice,startMoveIndice,p),board).getToBoard().getWhitePlayer().getBoard().getLesCase();
+        int startMoveIndice = transformeToInt(board, startMoveOpponent);
+        int endMoveIndice = transformeToInt(board, endMoveOpponent);
+        Piece p = board.p.getBoard().lesCase.get(startMoveIndice).getPiece();
+        List<Square> listeReception = board.p.makeMove(new Move(endMoveIndice, startMoveIndice, p), board).getToBoard().getWhitePlayer().getBoard().getLesCase();
 
 
-       board.getWhitePlayer().getBoard().setLesCase(listeReception);
-       board.getBlackPlayer().getBoard().setLesCase(listeReception);
+        board.getWhitePlayer().getBoard().setLesCase(listeReception);
+        board.getBlackPlayer().getBoard().setLesCase(listeReception);
         board.setLesCase(listeReception);
 
 
+        board.p = board.getBlackPlayer();
+        Move calculatedMove = strategy.execute(board, 3, false);
 
-
-
-
-        board.p=board.getBlackPlayer();
-        Move calculatedMove = strategy.execute(board,3,false);
-
-        startMove = intToCase(board,calculatedMove.getCurrCoord());
-        endMove = intToCase(board,calculatedMove.getDestCoord());
+        startMove = intToCase(board, calculatedMove.getCurrCoord());
+        endMove = intToCase(board, calculatedMove.getDestCoord());
 
 
         String moveSend = startMove + "-" + endMove;
 
         System.out.println("");
-        System.out.println("Emission Commande Joueur: " + board.p.getColor().toString() + " " + "Move: " + startMove + " " + endMove +" Piece " + calculatedMove.getPiece().toString());
+        System.out.println("Emission Commande Joueur: " + board.p.getColor().toString() + " " + "Move: " + startMove + " " + endMove + " Piece " + calculatedMove.getPiece().toString());
 
 
-        //board=board.p.makeMove(calculatedMove,board).getToBoard();
 
+        Piece pSource = board.p.getBoard().lesCase.get(calculatedMove.getCurrCoord()).getPiece();
+        Square pCible = board.p.getBoard().lesCase.get(calculatedMove.getDestCoord());
+        if (pCible != null && pCible.getPiece() != null) {
+            System.out.println("Piece : " + pSource.toString() + " mange " + pCible.getPiece().toString());
+        }
 
-        List <Square> listeEmission=board.p.makeMove(calculatedMove,board).getToBoard().getBlackPlayer().getBoard().getLesCase();
+        List<Square> listeEmission = board.p.makeMove(calculatedMove, board).getToBoard().getBlackPlayer().getBoard().getLesCase();
         board.getWhitePlayer().getBoard().setLesCase(listeEmission);
         board.getBlackPlayer().getBoard().setLesCase(listeEmission);
         board.setLesCase(listeEmission);
 
         board.afficherPlateau();
 
-        System.out.println("+++++++++++ Fin Guess: +++++++++++++++++" );
+        System.out.println("+++++++++++ Fin Guess: +++++++++++++++++");
         // send the move to the other player
         facade.sendGameCommandToAll(currentGame, new GameCommand("move", moveSend));
     }
-    public static String intToCase(Board b, int i){
-        return b.lesCase.get(i).getLetter()+String.valueOf( b.lesCase.get(i).getNumber());
+
+    public static String intToCase(Board b, int i) {
+        return b.lesCase.get(i).getLetter() + String.valueOf(b.lesCase.get(i).getNumber());
     }
-    public static int transformeToInt(Board b, String s){
+
+    public static int transformeToInt(Board b, String s) {
         int i = 0;
         for (Square square : b.lesCase) {
-            if(square.getLetter()==s.charAt(0) && square.getNumber()==Integer.parseInt(String.valueOf(s.charAt(1)))){
+            if (square.getLetter() == s.charAt(0) && square.getNumber() == Integer.parseInt(String.valueOf(s.charAt(1)))) {
                 return i;
             }
             i++;

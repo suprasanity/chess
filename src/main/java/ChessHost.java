@@ -16,7 +16,7 @@ import jeu.Player;
 import jeu.Square;
 
 public class ChessHost {
-
+    static int tour = 0;
     static Strategie strategy = new Minimax();
     static Move move;
     static Move moveOpponent;
@@ -68,16 +68,22 @@ public class ChessHost {
                 break;
 
             System.out.println("+++++++++++ Début Chess: +++++++++++++++++" );
-            //Board simu = new Board();
-            //simu.initPlayeur(new Player(simu,board.getWhitePlayer().getColor(),board.getWhitePlayer().getName()),
-             //       new Player(simu,board.getBlackPlayer().getColor(),board.getBlackPlayer().getName()));
-            // create your move
+            System.out.println("Tour: " + tour++);
 
             Move calculatedMove = strategy.execute(board,2,false);
             startMove = intToCase(board,calculatedMove.getCurrCoord());
             endMove = intToCase(board,calculatedMove.getDestCoord());
 
             System.out.println("Emission Commande Joueur: " + board.p.getColor().toString() + " " + "Move: " + startMove + " " + endMove +  " Piece "+ calculatedMove.getPiece().toString());
+
+
+            Piece pSource=board.p.getBoard().lesCase.get(calculatedMove.getCurrCoord()).getPiece();
+            Square pCible=board.p.getBoard().lesCase.get(calculatedMove.getPieceDestination());
+            if (pCible!=null && pCible.getPiece()!=null){
+                System.out.println("Piece : " + pSource.toString() +" mange " + pCible.getPiece().toString());
+            }
+
+
 
 
             String moveSend = startMove + "-" + endMove;
@@ -117,7 +123,8 @@ public class ChessHost {
                     .makeMove(new Move(endMoveIndice,startMoveIndice),board).getToBoard();*/
 
             //board = moveOpp0onent.getToBoard();
-            board.afficherPlateau();
+
+            //board.afficherPlateau();
             System.out.println("+++++++++++ Fin  Chess: +++++++++++++++++" );
         }
     }
