@@ -3,13 +3,16 @@ package jeu;
 import Piece.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Board {
 
+    static int NB_FREQ_MAX=3;
 
+    private HashMap<String, Integer> mapsFrequence = new HashMap<String, Integer>();
 
-    public  List<Square> getLesCase() {
+    public List<Square> getLesCase() {
         return lesCase;
     }
 
@@ -18,20 +21,18 @@ public class Board {
         this.lesCase = lesCase;
     }
 
-    public  List<Square> lesCase = new ArrayList<>();
+    public List<Square> lesCase = new ArrayList<>();
     public static final List<Character> LETTER = arrayToListChar("ABCDEFGH".toCharArray());
     public static final int START_INDEX_BOARD = 0;
     public static final int END_INDEX_BOARD = 63;
-    public  Player p;
+    public Player p;
 
 
-
-    public  Player whitePlayer;
-
+    public Player whitePlayer;
 
 
-    public  Player blackPlayer;
-    public  Player opponentPlayer;
+    public Player blackPlayer;
+    public Player opponentPlayer;
 
 
     public Board() {
@@ -120,11 +121,13 @@ public class Board {
 
 
     }
+
     public void afficherPlateau(boolean affichagePlateau) {
-        if (affichagePlateau){
+        if (affichagePlateau) {
             afficherPlateau();
         }
     }
+
     public void afficherPlateau() {
         int buff = 0;
         System.out.println("");
@@ -155,43 +158,34 @@ public class Board {
 
     public Player getWhitePlayer() {
 
-      return whitePlayer;
+        return whitePlayer;
 
     }
 
     public void alterneJoueur() {
-        if (this.p==this.getBlackPlayer()){
-            this.p=this.getWhitePlayer();
-            this.opponentPlayer=this.getBlackPlayer();
+        if (this.p == this.getBlackPlayer()) {
+            this.p = this.getWhitePlayer();
+            this.opponentPlayer = this.getBlackPlayer();
         } else {
-            this.p=this.getBlackPlayer();
-            this.opponentPlayer=this.getWhitePlayer();
+            this.p = this.getBlackPlayer();
+            this.opponentPlayer = this.getWhitePlayer();
         }
     }
 
-    public void setJoueurEncoursIA() {
-            this.p=this.getWhitePlayer();
-            this.opponentPlayer=this.getBlackPlayer();
 
-    }
-    public void setJoueurEncoursHumain() {
-        this.p=this.getBlackPlayer();
-        this.opponentPlayer=this.getWhitePlayer();
-
-    }
     public Player getBlackPlayer() {
-    return blackPlayer;
+        return blackPlayer;
     }
 
     public Player getPlayerToPlay() {
         return this.p;
     }
 
-    public void setPlayerToPlay(Player  player) {
-        this.p=player;
+    public void setPlayerToPlay(Player player) {
+        this.p = player;
     }
 
-    public List<Square> copyCase( List<Square> lesCase) {
+    public List<Square> copyCase(List<Square> lesCase) {
         List<Square> copyCase = new ArrayList<>();
         for (Square c : lesCase) {
             copyCase.add(new Square(c.getLetter(), c.getNumber()));
@@ -223,5 +217,38 @@ public class Board {
             }
         }
         return copyCase;
+    }
+
+    public void incrementeFrequence(Move move) {
+        String moveString = move.getPiece().getColor() + move.getPiece().toString() + move.getCurrCoord() + move.getDestCoord();
+        if (this.mapsFrequence.containsKey(moveString)) {
+            this.mapsFrequence.put(moveString, this.mapsFrequence.get(moveString).intValue() + 1);
+        } else {
+            this.mapsFrequence.put(moveString, 1);
+        }
+    }
+    public HashMap<String, Integer> getMapsFrequence() {
+        return mapsFrequence;
+    }
+    public  boolean  detectTropDeFoisLeMemeMove(){
+        for (String key : this.mapsFrequence.keySet()) {
+
+            if (this.mapsFrequence.get(key)>=NB_FREQ_MAX){
+                return true;
+            }
+        }
+        return false;
+    }
+    public  boolean detectRoiMange(){
+        int nbRoi=0;
+        for (Square square : this.getLesCase()) {
+            if (square.getPiece()!=null && square.getPiece().getType()== Piece.PieceType.KING){
+                nbRoi++;
+            }
+            if (nbRoi>1){
+                return false;
+            }
+        }
+        return nbRoi<2;
     }
 }

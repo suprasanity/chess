@@ -54,10 +54,10 @@ public class EvaluateWinner {
         Piece queenWhite = board.whitePlayer.getQueen();
         Piece queenBlack = board.blackPlayer.getQueen();
         int[] points = new int[2];
-        if (queenWhite.firstMove()) {
+        if (queenWhite!=null&&queenWhite.firstMove()) {
             points[0] = 10;
         }
-        if (queenBlack.firstMove()) {
+        if (queenBlack!=null&&queenBlack.firstMove()) {
             points[1] = 10;
         }
         return points;
@@ -116,9 +116,9 @@ public class EvaluateWinner {
         Piece kingWhite = board.whitePlayer.getKing();
         Piece kingBlack = board.blackPlayer.getKing();
         int[] points = new int[2];
-        if (kingWhite.firstMove()) {
+        if (kingWhite!=null&&kingWhite.firstMove()) {
             points[0] = 10;
-        } else if (kingBlack.firstMove()) {
+        } else if (kingBlack!=null&&kingBlack.firstMove()) {
             points[1] = 10;
         }
         return points;

@@ -1,6 +1,7 @@
 package jeu;
 
-import Piece.Piece;
+import Piece.
+*;
 
 public class Move {
     private int destCoord;
@@ -64,8 +65,25 @@ public class Move {
         return copie;
     }
 
-    public int getCurrentCoordinate() {
-        return currCoord;
+
+    public void doMove(Board board) {
+        board.lesCase.get(destCoord).setPiece(board.lesCase.get(currCoord).getPiece());
+        board.lesCase.get(currCoord).setPiece(null);
+        board.p.getBoard().getLesCase().get(destCoord).setPiece(board.lesCase.get(currCoord).getPiece());
+        board.p.getBoard().getLesCase().get(currCoord).setPiece(null);
+
+    }
+
+    public void undoMove(Board board) {
+        board.lesCase.get(currCoord).setPiece(board.lesCase.get(destCoord).getPiece());
+        board.lesCase.get(destCoord).setPiece(piece);
+        board.p.getBoard().getLesCase().get(currCoord).setPiece(board.lesCase.get(destCoord).getPiece());
+        board.p.getBoard().getLesCase().get(destCoord).setPiece(piece);
+    }
+
+    public Piece getPieceAt(int destCoord,Board board) {
+        //
+        return board.lesCase.get(destCoord).getPiece();
     }
 
     public int getPieceDestination() {

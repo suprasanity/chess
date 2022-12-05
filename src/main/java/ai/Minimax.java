@@ -38,14 +38,14 @@ public class Minimax implements Strategie {
 
 
         int indice=0;
-        System.out.println("situation initiale "+indice);
+
         board.afficherPlateau(affichagePlateau);
         if (board.p.getColor().equals("White")) {
             bestMove = getMove(board, depth, bestMove, highestSeenValue, lowestSeenValue, indice, MesConstantes.WHITE,MesConstantes.BLACK);
         }else{
             bestMove = getMove(board, depth, bestMove, highestSeenValue, lowestSeenValue, indice, MesConstantes.BLACK,MesConstantes.WHITE);
         }
-
+        board.incrementeFrequence(bestMove);
         return bestMove;
     }
 
@@ -63,11 +63,50 @@ public class Minimax implements Strategie {
             currentValue = board.p.getColor().equals(couleurPlayeur) ? min(moveTransition.getToBoard(), depth - 1,affichagePlateau) : max(moveTransition.getToBoard(), depth - 1,affichagePlateau);
 
             if (board.p.getColor().equals(couleurPlayeur) && currentValue >= highestSeenValue) {
-                highestSeenValue = currentValue;
-                bestMove = move;
+                String moveString = move.getPiece().getColor() + move.getPiece().toString() + move.getCurrCoord() + move.getDestCoord();
+
+                if (bestMove!=null){
+                    String moveBestString = bestMove.getPiece().getColor() + bestMove   .getPiece().toString() + bestMove.getCurrCoord() + bestMove.getDestCoord();
+                    if(board.getMapsFrequence().get(moveString)!=null){
+                        if  (board.getMapsFrequence().get(moveBestString)!=null){
+                            if (board.getMapsFrequence().get(moveString)<board.getMapsFrequence().get(moveString)){
+                                highestSeenValue = currentValue;
+                                bestMove = move;
+                            }
+                        }else{
+                            //on fait rien
+                        }
+                    }else {
+                        highestSeenValue = currentValue;
+                        bestMove = move;
+                    }
+                }else{
+                    highestSeenValue = currentValue;
+                    bestMove = move;
+                }
+
             } else if (board.p.getColor().equals(couleurAdv) && currentValue <= lowestSeenValue) {
-                lowestSeenValue = currentValue;
-                bestMove = move;
+                String moveString = move.getPiece().getColor() + move.getPiece().toString() + move.getCurrCoord() + move.getDestCoord();
+                if (bestMove!=null){
+                    String moveBestString = bestMove.getPiece().getColor() + bestMove   .getPiece().toString() + bestMove.getCurrCoord() + bestMove.getDestCoord();
+                    if(board.getMapsFrequence().get(moveString)!=null){
+                        if  (board.getMapsFrequence().get(moveBestString)!=null){
+                            if (board.getMapsFrequence().get(moveString)<board.getMapsFrequence().get(moveString)){
+                                lowestSeenValue = currentValue;
+                                bestMove = move;
+                            }
+                        }else{
+                            //on fait rien
+                        }
+                    }else {
+                        lowestSeenValue = currentValue;
+                        bestMove = move;
+                    }
+                }else {
+                    lowestSeenValue = currentValue;
+                    bestMove = move;
+                }
+
             }
 
         }
@@ -83,7 +122,7 @@ public class Minimax implements Strategie {
         int indice=0;
         for (Move move : board.getPlayerToPlay().getLegalMoves()) {
             MoveTransition moveTransition = board.getPlayerToPlay().makeMove(move, board);
-            //System.out.println("simulation Min " +indice);
+
             moveTransition.getToBoard().afficherPlateau(affichagePlateau);
 
             int currentValue = max(moveTransition.getToBoard(), depth - 1,affichagePlateau);
