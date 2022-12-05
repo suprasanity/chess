@@ -66,7 +66,7 @@ public class Player {
             }
 
         }
-        /*if (this.isInCheck(board)){
+        if (this.isInCheck(board)){
             for (Move move : legalMoves) {
                 move.doMove(board);
                 if (!this.inCheckMate()){
@@ -75,7 +75,7 @@ public class Player {
                 move.undoMove(board);
             }
             return legalMoves2;
-        }*/
+        }
         return legalMoves;
     }
 

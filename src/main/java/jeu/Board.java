@@ -8,6 +8,24 @@ import java.util.List;
 
 public class Board {
 
+    public int getNbMaxTour() {
+        return NB_MAX_TOUR;
+    }
+
+
+    private int NB_MAX_TOUR=80;
+    public int getTour() {
+        return tour;
+    }
+
+    public void setTour(int tour) {
+        this.tour = tour;
+    }
+    public void incrementTour(){
+        this.tour++;
+    }
+
+    int tour=0;
     static int NB_FREQ_MAX=3;
 
     private HashMap<String, Integer> mapsFrequence = new HashMap<String, Integer>();

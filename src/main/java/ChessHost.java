@@ -130,13 +130,19 @@ public class ChessHost {
     }
 
     private static boolean handleGameOver(PlayerFacade playerFacade, Game game, Board board) {
-        // check if the game is over
+        boolean endofgame=false;// check if the game is over
         if (board.blackPlayer.inCheckMate()) {
-            whoWin(playerFacade, game, board);
+            endofgame=whoWin(playerFacade, game, board);
         } else if (board.whitePlayer.inCheckMate()) {
-            whoWin(playerFacade, game, board);
+            endofgame=whoWin(playerFacade, game, board);
         } else if (board.p.inStaleMate()) {
-            whoWin(playerFacade, game, board);
+            endofgame=whoWin(playerFacade, game, board);
+        }else if (board.getTour() >= board.getNbMaxTour()) {
+            endofgame = whoWin(playerFacade, game, board);
+        }else if (board.detectTropDeFoisLeMemeMove()){
+            endofgame = whoWin(playerFacade, game, board);
+        }else if (board. detectRoiMange()){
+            endofgame = whoWin(playerFacade, game, board);
         }
         // the game is not over
         return false;

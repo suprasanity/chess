@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Main {
 
-    static int NB_MAX_TOUR=80;
+
 
     public static void main(String[] args) {
 
@@ -32,18 +32,18 @@ public class Main {
         Minimax m2 = new Minimax();
         Strategie strategieJoueurNoir = m2;
 
-        int tour = 0;
+
 
 
 
         while (!endofgame) {
-            tour++;
+            board.incrementTour();
 
-            System.out.println("Tour: " + tour);
+            System.out.println("Tour: " + board.getTour());
             joueurBlancJoue(board, strategieJoueurBlanc);
             joueurBlackJoue(board, strategieJoueurNoir);
 
-            endofgame=checkEndGame(board,tour,NB_MAX_TOUR);
+            endofgame=checkEndGame(board);
 
 
         }
@@ -51,7 +51,7 @@ public class Main {
 
     }
 
-    private static boolean checkEndGame(Board board,int tour,int nbMaxTour) {
+    private static boolean checkEndGame(Board board) {
         boolean endofgame = false;
         if (board.blackPlayer.inCheckMate()) {
             endofgame=whoWin(board);
@@ -59,8 +59,8 @@ public class Main {
             endofgame=whoWin(board);
         } else if (board.p.inStaleMate()) {
             endofgame=whoWin(board);
-        }else if (tour >= nbMaxTour) {
-            endofgame = whoWin(board);;
+        }else if (board.getTour() >= board.getNbMaxTour()) {
+            endofgame = whoWin(board);
         }else if (board.detectTropDeFoisLeMemeMove()){
             endofgame = whoWin(board);;
         }else if (board. detectRoiMange()){
@@ -108,7 +108,7 @@ public class Main {
         String startMove;
         String endMove;
         board.p = board.getWhitePlayer();
-        Move calculatedMove = strategieJoueurBlanc.execute(board, 3, false);
+        Move calculatedMove = strategieJoueurBlanc.execute(board, 2, false);
         startMove = intToCase(board, calculatedMove.getCurrCoord());
         endMove = intToCase(board, calculatedMove.getDestCoord());
         System.out.println("Emission Commande Joueur: " + board.p.getColor().toString() + " " + "Move: " + startMove + " " + endMove + " Piece " + calculatedMove.getPiece().toString());
