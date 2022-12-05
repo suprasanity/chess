@@ -117,7 +117,7 @@ public class Pawn extends Piece {
                     new Move(nextPossibleSquare,index,square.getPiece())));
                 }*/
         if (board.p.getColor().equals(square.getPiece().getColor())) {
-            if (nextPossibleSquare >= Board.START_INDEX_BOARD) {
+            if (nextPossibleSquare >= Board.START_INDEX_BOARD && nextPossibleSquare < Board.END_INDEX_BOARD) {
                 if (board.lesCase.get(nextPossibleSquare).getPiece() == null) {
                     legalMove.add(new Move(nextPossibleSquare, index, square.getPiece()));
                 }

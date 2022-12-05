@@ -57,6 +57,7 @@ public class Player {
 
     public List<Move> getLegalMoves() {
         List<Move> legalMoves = new ArrayList<>();
+        List<Move> legalMoves2 = new ArrayList<>();
         for (Piece piece : getAllPieces(board.lesCase)) {
             if (piece.getColor().equals(this.color)){
                  if (piece.legalMovSquares(piece.getPiecePosition(board), board).size() != 0){
@@ -64,6 +65,16 @@ public class Player {
                 }
             }
 
+        }
+        if (this.isInCheck(board)){
+            for (Move move : legalMoves) {
+                move.doMove(board);
+                if (!this.inCheckMate()){
+                    legalMoves2.add(move);
+                }
+                move.undoMove(board);
+            }
+            return legalMoves2;
         }
         return legalMoves;
     }
@@ -92,15 +103,12 @@ public class Player {
 
 
     public boolean inCheckMate() {
-        return false;
+        return this.isInCheck() && this.getLegalMoves().isEmpty();
     }
 
-    public Piece getQueen() {
-        return null;
-    }
 
     public boolean inStaleMate() {
-        return false;
+        return getLegalMoves().isEmpty();
     }
 
     public List<Piece> getPieceOnBoard() {
@@ -172,5 +180,17 @@ public class Player {
             }
         }
         return allOpponentMove;
+    }
+    public boolean isInCheck(Board b){
+        for(Move move : getOpponentAttacksOnSquare(b)){
+            if(move.getPieceAt(move.getDestCoord(),b) instanceof King){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Piece getQueen() {
+        return null;
     }
 }
