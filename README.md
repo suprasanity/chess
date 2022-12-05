@@ -28,7 +28,6 @@ Le vainquer reçoit 100 points et pour chaque mission réaliser reçoit 10 point
 Partie nulle : Une partie est déclarée nulle dans les cas suivants
 - si le roi est pat.
 - si une pièce occupe trois fois une même position (à la suite ou non).
-- si 50 coups sont joués sans prise et sans mouvement de pion.
 - si le nombre de pièces est insuffisant pour mettre échec et mat l'adversaire
 
 Impossiblité de mater :
@@ -37,6 +36,6 @@ Impossiblité de mater :
 - roi et cavalier contre roi,
 - roi et fou contre roi et fou de même couleur.
 
-# Détail des classes principales:
+
 # Protocole réseau :
 ![197554039-8f9cd025-6eb0-45bc-bde9-9bbddefce130](https://user-images.githubusercontent.com/113866704/197609509-30d4a90e-a520-4ca9-8357-13708e012e2a.png)
